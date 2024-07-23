@@ -2,7 +2,7 @@
 
 ### Git 커밋 컨벤션
 |태그 이름|설명|
-|------|---|
+|---|---|
 |Feat|새로운 기능을 추가할 경우|
 |Fix|버그를 고친 경우|
 |Design|CSS 등 사용자 UI 디자인 변경|
@@ -16,3 +16,10 @@
 |Chore|빌드 태스트 업데이트, 패키지 매니저를 설정하는 경우(프로덕션 코드 변경 X)|
 |Rename|파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우|
 |Remove|파일을 삭제하는 작업만 수행한 경우|
+
+### Git 코드 컨벤션
+|변수명/함수명| Camel case|
+|함수명| 동사+명사 (ex. getUserInfomation())|
+|폴더명| 소문자|
+|jsx 파일명| Pascal case|
+|styled-components 파일명| 이름앞에 'styled' (ex. styledLoginForm.js)|

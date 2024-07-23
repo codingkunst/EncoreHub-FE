@@ -3,8 +3,9 @@ yarn add styled-components
 yarn add react-router-dom
 yarn add axios
 yarn add zustand
+yarn add immer
 yarn add @tanstack/react-query
 yarn add tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
-<규칙>
+
