@@ -20,8 +20,8 @@
 ### Git 코드 컨벤션
 |이름|설명|
 |---|---|
-|변수명/함수명| Camel case|
-|함수명| 동사+명사 (ex. getUserInfomation())|
-|폴더명| 소문자|
+|변수명/함수명|Camel case|
+|함수명|동사+명사 (ex. getUserInfomation())|
+|폴더명|소문자|
 |jsx 파일명| Pascal case|
 |styled-components 파일명| 이름앞에 'styled' (ex. styledLoginForm.js)|
