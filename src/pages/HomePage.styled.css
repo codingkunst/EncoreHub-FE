@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "WavvePADO-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
+  font-weight: 400;
+  font-style: normal;
+}
+* {
+  font-family: "Pretendard-Regular";
+  /* color: #fff; */
+}
+h1,
+span {
+  font-family: "WavvePADO-Regular";
+  /* color: #fff; */
+}
+.slider {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100vw;
+  /* position: fixed; */
+  bottom: 0;
+  left: 0;
+  height: auto;
+  margin: 1rem 0;
+}
+.secondSt-slider {
+  overflow: auto;
+  white-space: nowrap;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.slides {
+  display: flex;
+  width: 20%;
+  height: 100%;
+  animation: slide 10s linear infinite;
+  gap: 1rem;
+}
+.secondSt-slides {
+  display: flex;
+  gap: 1rem;
+}
+
+.slide {
+  min-width: 65%;
+  box-sizing: border-box;
+  text-align: center;
+  background: #f1f1f1;
+  /* border: 1px solid #ddd; */
+  font-size: 20px;
+}
+.secondSt-slide {
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+  box-sizing: border-box;
+  text-align: center;
+  background: #f1f1f1;
+  /* font-size: 20px; */
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
