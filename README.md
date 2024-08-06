@@ -7,7 +7,7 @@
 | [@noeulgim](https://github.com/noeulgim) | [@codingkunst](https://github.com/codingkunst) |
 
 ## 🛠️ Skill
-![Skills](https://skillicons.dev/icons?i=html,css,js,react)
+![Skills](https://skillicons.dev/icons?i=git,github,figma,html,css,js,react,vite,yarn)
 
 ## Git Commit Convention
 |태그 이름|설명|
