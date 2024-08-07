@@ -1252,5 +1252,50 @@
       "rnum": 10
     }
   ],
-  "favorite": []
+  "favoriteTheater": [],
+  "likePrmc": [
+    {
+      "id": "1",
+      "title": "prmc1",
+      "theater": "theater1",
+      "ticketDate": "2024-08-10",
+      "image": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg",
+      "link": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg"
+    },
+    {
+      "id": "2",
+      "title": "prmc2",
+      "theater": "theater1",
+      "ticketDate": "2024-08-11",
+      "image": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg"
+    },
+    {
+      "id": "3",
+      "title": "prmc3",
+      "theater": "theater1",
+      "ticketDate": "2024-08-12",
+      "image": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg"
+    },
+    {
+      "id": "4",
+      "title": "prmc4",
+      "theater": "theater1",
+      "ticketDate": "2024-08-14",
+      "image": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg"
+    },
+    {
+      "id": "5",
+      "title": "prmc5",
+      "theater": "theater1",
+      "ticketDate": "2024-08-20",
+      "image": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg"
+    },
+    {
+      "id": "6",
+      "title": "prmc6",
+      "theater": "theater1",
+      "ticketDate": "2024-08-10",
+      "image": "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201602/19/htm_20160219171437117902.jpg"
+    }
+  ]
 }

@@ -1,11 +1,10 @@
 import axiosInstance from "./axiosInstance";
 import axios from "axios";
-const API_URL = "http://54.180.54.113:8080";
 
 export const login = async (credentials) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/api/member/login`,
+    const response = await axiosInstance.post(
+      `/api/member/login`,
       credentials,
       {
         headers: {
@@ -28,16 +27,12 @@ export const login = async (credentials) => {
 
 export const register = async (userData) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/api/member/signup`,
-      userData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          // 'Accept': 'application/json',
-        },
-      }
-    );
+    const response = await axiosInstance.post(`/api/member/signup`, userData, {
+      headers: {
+        "Content-Type": "application/json",
+        // 'Accept': 'application/json',
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Registration failed:", error);

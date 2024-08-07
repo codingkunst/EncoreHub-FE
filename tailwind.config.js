@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         "main-color": "rgb(138, 14, 196)",
+        "main-color-opc": "rgba(138,14,196, .25)",
       },
     },
   },

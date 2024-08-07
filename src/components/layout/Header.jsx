@@ -41,6 +41,7 @@ const Header = () => {
         {!isHomePage && <SearchBar />}
         <HeaderContains>
           <StyledTicketAlert
+            className="transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
             onClick={handleAlertClick}
             // styled={isAuthenticated ? { display: "flex" } : { display: "none" }}
           >
@@ -48,9 +49,9 @@ const Header = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill={!shake ? "none" : "rgb(138,14,196)"}
               viewBox="0 0 24 24"
-              strokeWidth={2}
+              strokeWidth={1.7}
               stroke="rgb(138,14,196)"
-              className="size-6"
+              className="size-7"
               $shake={shake}
             >
               <path strokeLinecap="round" strokeLinejoin="round" d={pathData} />
@@ -68,7 +69,10 @@ const Header = () => {
                 </Link>
                 <Link to={"/signup"}>
                   <StyledButton
-                    style={{ backgroundColor: "rgb(138, 14, 196)" }}
+                    style={{
+                      backgroundColor: "rgb(138, 14, 196)",
+                      color: "#fff",
+                    }}
                   >
                     회원가입
                   </StyledButton>
@@ -84,7 +88,10 @@ const Header = () => {
                 </StyledButton>
                 <Link to={"/mypage"}>
                   <StyledButton
-                    style={{ backgroundColor: "rgb(138, 14, 196)" }}
+                    style={{
+                      backgroundColor: "rgb(138, 14, 196)",
+                      color: "#fff",
+                    }}
                   >
                     마이페이지
                   </StyledButton>

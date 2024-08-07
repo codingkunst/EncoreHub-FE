@@ -23,7 +23,7 @@ export const HeaderContains = styled.div`
 `;
 
 export const StyledTicketAlert = styled.button`
-  border: 3px solid rgb(245, 245, 245);
+  /* border: 3px solid rgb(245, 245, 245); */
   width: 2.5rem;
   height: 2.5rem;
   display: flex;

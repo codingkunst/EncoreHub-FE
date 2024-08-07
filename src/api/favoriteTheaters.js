@@ -1,12 +1,12 @@
 import axiosInstance from "./axiosInstance";
 
 export const fetchFavoriteTheaters = async () => {
-  const response = await axiosInstance.get("/favorite");
+  const response = await axiosInstance.get("/favoriteTheater");
   return response.data;
 };
 
 export const addFavoriteTheater = async (theater, theaterId) => {
-  const response = await axiosInstance.post("/favorite", {
+  const response = await axiosInstance.post("/favoriteTheater", {
     venue: theater,
     theaterId,
   });
@@ -14,7 +14,7 @@ export const addFavoriteTheater = async (theater, theaterId) => {
 };
 
 export const removeFavoriteTheater = async (theaterId) => {
-  const response = await axiosInstance.delete("/favorite", {
+  const response = await axiosInstance.delete("/favoriteTheater", {
     data: { theaterId },
   });
   return response.data;
