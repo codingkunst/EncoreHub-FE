@@ -1,0 +1,29 @@
+.like-button, .favorite-button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.like-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.favorite-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.like-button.active {
+  background-color: #ff6b6b;
+  color: white;
+}
+
+.favorite-button.active {
+  background-color: #feca57;
+  color: white;
+}

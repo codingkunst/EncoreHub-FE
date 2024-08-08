@@ -1,8 +1,9 @@
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Router from "./shared/Router";
 
 function App() {
-  return <Router />;
+  return <Router />
 }
 
 export default App;

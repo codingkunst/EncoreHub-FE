@@ -23,5 +23,14 @@ dist-ssr
 *.sln
 *.sw?
 
+# 환경 설정 파일
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 빌드 출력 파일
+build/
+
 # .gitignore
 .env.local
