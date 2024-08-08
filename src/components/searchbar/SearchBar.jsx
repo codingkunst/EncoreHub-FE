@@ -25,6 +25,24 @@ const SearchBar = () => {
     });
   };
 
+  const {
+    searchTheaters,
+    setSearchTheaters,
+    searchTheaterName,
+    setSearchTheaterName,
+  } = useTheaterStore((state) => ({
+    setSearchTheaters: state.setSearchTheaters,
+    searchTheaters: state.searchTheaters,
+    searchTheaterName: state.searchTheaterName,
+    setSearchTheaterName: state.setSearchTheaterName,
+  }));
+
+  const handleButtonClick = (theater) => {
+    setSearchTheaterName(theater);
+    toggleSearchModal();
+    console.log(theater, searchTheaterName);
+  };
+
   //search
   const [searchInput, setsearchInput] = useState("");
   const [error, setError] = useState("");
@@ -53,7 +71,13 @@ const SearchBar = () => {
           value={searchInput}
           onChange={(e) => setsearchInput(e.target.value)}
         />
-        <Button onClick={toggleSearchModal}>Search</Button>
+        <Button
+          onClick={() => {
+            handleButtonClick(searchInput);
+          }}
+        >
+          Search
+        </Button>
       </SearchBarContainer>
       <SearchBarModal isVisible={isModalVisible} onClose={toggleModal} />
       <SearchTheaterModal

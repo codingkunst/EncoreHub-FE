@@ -14,22 +14,36 @@ const HomePage = () => {
   // const rankedList = getRankedList();
   // const upcomingList = getUpcomingList();
 
-  const [data, setData] = useState(null);
+  const [regionData, setRegionData] = useState(null);
+  const [theaterData, setTheaterData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRegionData = async () => {
       try {
         const response = await axiosInstance.post("/api/theater/save-list");
-        setData(response.data);
-        console.log("success", response);
+        setRegionData(response.data);
+        console.log("success fetch region data", response);
       } catch (err) {
         setError(err);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
+    fetchRegionData();
+
+    const fetchTheaterData = async () => {
+      try {
+        const response = await axiosInstance.post("/api/theater/save-details");
+        setTheaterData(response.data);
+        console.log("success fetch theater data", response);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTheaterData();
   }, []);
 
   if (loading) return <p>Loading...</p>;

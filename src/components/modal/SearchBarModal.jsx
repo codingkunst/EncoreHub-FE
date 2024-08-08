@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useFetchRegions } from "../../hooks/useTheaters";
+import { useFetchRegions, useFetchTheaters } from "../../hooks/useTheaters";
 // import {
 //   useFetchFavoriteTheaters,
 //   useAddFavoriteTheater,
@@ -30,19 +30,21 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     error: Rerror,
   } = useFetchRegions();
 
-  // const { setSelectedRegion, selectedRegion } = useTheaterStore((state) => ({
-  //   selectedRegion: state.selectedRegion,
-  //   setSelectedRegion: state.setSelectedRegion,
-  //   setRegions: state.setRegions,
-  // }));
+  const { setSelectedRegion, selectedRegion, setRegions } = useTheaterStore(
+    (state) => ({
+      selectedRegion: state.selectedRegion,
+      setSelectedRegion: state.setSelectedRegion,
+      setRegions: state.setRegions,
+    })
+  );
 
-  // 공연장
-  // const {
-  //   data: theaters,
-  //   isLoading: isTLoading,
-  //   isError: isTError,
-  //   error: Terror,
-  // } = useFetchTheaters(selectedRegion);
+  // 공연장;
+  const {
+    data: theaters,
+    isLoading: isTLoading,
+    isError: isTError,
+    error: Terror,
+  } = useFetchTheaters(selectedRegion);
 
   // 즐겨찾기
   // const {
@@ -58,6 +60,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const handleButtonClick = (region, event) => {
     event.preventDefault();
     setSelectedRegion(region);
+    console.log(region);
   };
 
   const { isAuthenticated } = useAuthStore((state) => ({
@@ -73,7 +76,8 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   useEffect(() => {
     console.log(isAuthenticated);
     console.log(regions);
-  }, []);
+    console.log(theaters);
+  }, [regions, theaters]);
 
   // const [selectedVenue, setSelectedVenue] = useState(null);
 
@@ -211,13 +215,13 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           </ListItem>
           <RegionItems style={{ height: "calc(100% - (48px + 2rem))" }}>
             <div>
-              {regions.map((region, index) => (
+              {regions.gugunnms.map((region, index) => (
                 <ListItem
                   key={index}
-                  onClick={(event) => handleButtonClick(region.gugunnms, event)}
+                  onClick={(event) => handleButtonClick(region, event)}
                   className="block cursor-pointer rounded-lg p-2 text-left transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200"
                   style={
-                    selectedRegion === region.id
+                    selectedRegion === region
                       ? {
                           backgroundColor: "rgb(138, 14, 196)",
                           color: "rgb(255,255,255)",
@@ -225,7 +229,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                       : { backgroundColor: "rgb(255,255,255)" }
                   }
                 >
-                  {region.gugunnms}
+                  {region}
                 </ListItem>
               ))}
             </div>
@@ -255,19 +259,19 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           <p>공연장 별 공연 정보를 확인하세요! (지역 > 공연장 선택)</p>
           <p>자주 찾는 공연장을 즐겨찾기에 추가할 수 있습니다.</p>
         </div>
-        {/* {selectedRegion ? (
-          theaters.venues ? (
+        {selectedRegion ? (
+          theaters ? (
             <VenueList>
-              {theaters.venues.map((theater) => (
+              {theaters.map((theater, index) => (
                 <VenueItem
-                  key={theater.id}
-                  className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-s font-medium uppercase leading-normal text-grey shadow-[0_4px_9px_-4px_#ccc] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                  key={theater.index}
+                  className="inline-block rounded px-6 pb-2 pt-2.5 text-s font-medium uppercase leading-normal text-grey shadow-[0_4px_9px_-4px_#ccc] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   style={{ justifyContent: "space-between" }}
                 >
                   <button style={{ marginRight: "5px" }}>
-                    {theater.venue}
+                    {theater.fcltynm}
                   </button>
-                  <button onClick={() => handleAddFavoriteClick(theater)}>
+                  {/* <button onClick={() => handleAddFavoriteClick(theater)}>
                     {favoriteTheaters.some((fav) => fav.id === theater.id) ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -299,7 +303,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                         />
                       </svg>
                     )}
-                  </button>
+                  </button> */}
                 </VenueItem>
               ))}
             </VenueList>
@@ -308,7 +312,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           )
         ) : (
           <p>원하는 지역을 선택하세요!</p>
-        )} */}
+        )}
       </div>
     </Modal>
   );

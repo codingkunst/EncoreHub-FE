@@ -1,8 +1,8 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import {
   fetchRegions,
-  // fetchTheaters,
-  // fetchSearchTheaters,
+  fetchTheaters,
+  fetchSearchTheaters,
   // addFavoriteTheaters,
   // removeFavoriteTheaters,
 } from "../api/theaters";
@@ -23,41 +23,47 @@ export const useFetchRegions = () => {
   });
 };
 
-// export const useFetchTheaters = () => {
-//   const setTheaters = useTheaterStore((state) => state.setTheaters);
-//   const selectedRegion = useTheaterStore((state) => state.selectedRegion);
-//   return useQuery({
-//     queryKey: ["theaters", selectedRegion],
-//     queryFn: () => {
-//       if (!selectedRegion) {
-//         return Promise.resolve([]); // selectedRegion이 없을 경우 빈 배열 반환
-//       }
-//       return fetchTheaters(selectedRegion);
-//     },
-//     onSuccess: (data) => {
-//       setTheaters(data);
-//     },
-//     onError: (error) => {
-//       console.error("Error fetching theaters", error);
-//     },
-//     enabled: !!selectedRegion,
-//   });
-// };
+export const useFetchTheaters = () => {
+  const setTheaters = useTheaterStore((state) => state.setTheaters);
+  const selectedRegion = useTheaterStore((state) => state.selectedRegion);
+  return useQuery({
+    queryKey: ["theaters", selectedRegion],
+    queryFn: () => {
+      if (!selectedRegion) {
+        return Promise.resolve([]); // selectedRegion이 없을 경우 빈 배열 반환
+      }
+      return fetchTheaters(selectedRegion);
+    },
+    onSuccess: (data) => {
+      setTheaters(data);
+    },
+    onError: (error) => {
+      console.error("Error fetching theaters", error);
+    },
+    enabled: !!selectedRegion,
+  });
+};
 
-// export const useFetchSearchTheater = () => {
-//   const setsearchTheater = useTheaterStore((state) => state.setsearchTheater);
-//   return useQuery({
-//     queryKey: ["searchTheater"],
-//     queryFn: fetchSearchTheaters,
-//     onSuccess: (data) => {
-//       setsearchTheater(data);
-//       console.log("Success fetch search theaters");
-//     },
-//     onError: (error) => {
-//       console.error("Error fetching search theater", error);
-//     },
-//   });
-// };
+export const useFetchSearchTheater = (theater) => {
+  const setsearchTheaters = useTheaterStore((state) => state.setsearchTheaters);
+  const searchTheaterName = useTheaterStore((state) => state.searchTheaterName);
+  return useQuery({
+    queryKey: ["searchTheater", searchTheaterName],
+    queryFn: () => {
+      if (!searchTheaterName) {
+        return Promise.resolve([]);
+      }
+      return fetchSearchTheaters(searchTheaterName);
+    },
+    onSuccess: (data) => {
+      setsearchTheaters(data);
+      console.log("Success fetch search theaters");
+    },
+    onError: (error) => {
+      console.error("Error fetching search theater", error);
+    },
+  });
+};
 
 // export const useAddFavoriteTheater = () => {
 //   const queryClient = useQueryClient();
