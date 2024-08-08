@@ -3,19 +3,14 @@ import useAuthStore from "../zustand/useAuthStore";
 import {
   login as apiLogin,
   register as apiRegister,
-  getUser as apiGetUser,
-  updateUser,
-  deactivateUser,
-  kakaoLogin,
-  naverLogin,
-  googleLogin,
+  // getUser as apiGetUser,
+  // updateUser,
+  // deactivateUser,
+  // kakaoLogin,
+  // naverLogin,
+  // googleLogin,
 } from "../api/auth";
 import { useNavigate } from "react-router-dom";
-
-//useQueryClient() : React query의 queryclient를 가져옴. 캐시된 데이터를 무효화하거나 갱신
-//useAuthStore 훅을 통해 로그인 상태를 관리하는 login 함수를 가져옴 -> JWT를 저장하고 인증 상태를 업데이트하는 함수
-//useQuery : get
-//useMutation : post/patch
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
@@ -73,94 +68,94 @@ export const useRegister = () => {
   });
 };
 
-export const useGetUser = (userId) => {
-  const token = useAuthStore((state) => state.token);
-  return useQuery(
-    ["user", userId],
-    async () => {
-      if (token && userId) {
-        return await apiGetUser(userId);
-      }
-      return null;
-    },
-    {
-      enabled: !!token && !!userId,
-    }
-  );
-};
+// export const useGetUser = (userId) => {
+//   const token = useAuthStore((state) => state.token);
+//   return useQuery(
+//     ["user", userId],
+//     async () => {
+//       if (token && userId) {
+//         return await apiGetUser(userId);
+//       }
+//       return null;
+//     },
+//     {
+//       enabled: !!token && !!userId,
+//     }
+//   );
+// };
 
-export const useUpdateUser = () => {
-  const queryClient = useQueryClient();
+// export const useUpdateUser = () => {
+//   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: async (data) => {
-      await updateUser(data.userId, data.userData);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["user"]);
-    },
-    onError: (error) => {
-      console.error("Update user failed:", error);
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: async (data) => {
+//       await updateUser(data.userId, data.userData);
+//     },
+//     onSuccess: () => {
+//       queryClient.invalidateQueries(["user"]);
+//     },
+//     onError: (error) => {
+//       console.error("Update user failed:", error);
+//     },
+//   });
+// };
 
-export const useDeactivateUser = () => {
-  const queryClient = useQueryClient();
-  const logout = useAuthStore((state) => state.logout);
+// export const useDeactivateUser = () => {
+//   const queryClient = useQueryClient();
+//   const logout = useAuthStore((state) => state.logout);
 
-  return useMutation({
-    mutationFn: async (userId) => {
-      await deactivateUser(userId);
-      logout();
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["user"]);
-    },
-    onError: (error) => {
-      console.error("Deactivate user failed:", error);
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: async (userId) => {
+//       await deactivateUser(userId);
+//       logout();
+//     },
+//     onSuccess: () => {
+//       queryClient.invalidateQueries(["user"]);
+//     },
+//     onError: (error) => {
+//       console.error("Deactivate user failed:", error);
+//     },
+//   });
+// };
 
-export const useKakaoLogin = () => {
-  const login = useAuthStore((state) => state.login);
+// export const useKakaoLogin = () => {
+//   const login = useAuthStore((state) => state.login);
 
-  return useMutation({
-    mutationFn: async (socialData) => {
-      const response = await kakaoLogin(socialData);
-      if (response.accessToken && response.refreshToken) {
-        login(response.accessToken, response.refreshToken);
-      }
-      return response;
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: async (socialData) => {
+//       const response = await kakaoLogin(socialData);
+//       if (response.accessToken && response.refreshToken) {
+//         login(response.accessToken, response.refreshToken);
+//       }
+//       return response;
+//     },
+//   });
+// };
 
-export const useNaverLogin = () => {
-  const login = useAuthStore((state) => state.login);
+// export const useNaverLogin = () => {
+//   const login = useAuthStore((state) => state.login);
 
-  return useMutation({
-    mutationFn: async (socialData) => {
-      const response = await naverLogin(socialData);
-      if (response.accessToken && response.refreshToken) {
-        login(response.accessToken, response.refreshToken);
-      }
-      return response;
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: async (socialData) => {
+//       const response = await naverLogin(socialData);
+//       if (response.accessToken && response.refreshToken) {
+//         login(response.accessToken, response.refreshToken);
+//       }
+//       return response;
+//     },
+//   });
+// };
 
-export const useGoogleLogin = () => {
-  const login = useAuthStore((state) => state.login);
+// export const useGoogleLogin = () => {
+//   const login = useAuthStore((state) => state.login);
 
-  return useMutation({
-    mutationFn: async (socialData) => {
-      const response = await googleLogin(socialData);
-      if (response.accessToken && response.refreshToken) {
-        login(response.accessToken, response.refreshToken);
-      }
-      return response;
-    },
-  });
-};
+//   return useMutation({
+//     mutationFn: async (socialData) => {
+//       const response = await googleLogin(socialData);
+//       if (response.accessToken && response.refreshToken) {
+//         login(response.accessToken, response.refreshToken);
+//       }
+//       return response;
+//     },
+//   });
+// };

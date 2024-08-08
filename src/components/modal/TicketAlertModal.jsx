@@ -6,25 +6,25 @@ import {
   DialogTitle,
   TransitionChild,
 } from "@headlessui/react";
-import usePrmcStore from "../../zustand/usePrmcStore";
-import { useFetchLikePrmcs } from "../../hooks/useLikePrmcs";
+// import usePrmcStore from "../../zustand/usePrmcStore";
+// import { useFetchLikePrmcs } from "../../hooks/useLikePrmcs";
 import { Link } from "react-router-dom";
 // import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function TicketAlertModal({ open, onClose }) {
-  const { data: likePrmcs, isLoading, isError, error } = useFetchLikePrmcs();
-  const { likePrmc, setLikePrmc } = usePrmcStore((state) => ({
-    likePrmc: state.likePrmc,
-    setLikePrmc: state.setLikePrmc,
-  }));
+  // const { data: likePrmcs, isLoading, isError, error } = useFetchLikePrmcs();
+  // const { likePrmc, setLikePrmc } = usePrmcStore((state) => ({
+  //   likePrmc: state.likePrmc,
+  //   setLikePrmc: state.setLikePrmc,
+  // }));
 
-  useEffect(() => {
-    likePrmc;
-    likePrmcs;
-    setLikePrmc;
-    // Log likePrmc after it has been updated
-    console.log(likePrmcs, likePrmc);
-  });
+  // useEffect(() => {
+  //   likePrmc;
+  //   likePrmcs;
+  //   setLikePrmc;
+  //   // Log likePrmc after it has been updated
+  //   console.log(likePrmcs, likePrmc);
+  // });
 
   const calculateDday = (ticketDate) => {
     const today = new Date();
@@ -40,11 +40,11 @@ export default function TicketAlertModal({ open, onClose }) {
     return daysDiff;
   };
 
-  const sortedPrmcs = Array.isArray(likePrmcs)
-    ? likePrmcs
-        .slice()
-        .sort((a, b) => new Date(a.ticketDate) - new Date(b.ticketDate))
-    : [];
+  // const sortedPrmcs = Array.isArray(likePrmcs)
+  //   ? likePrmcs
+  //       .slice()
+  //       .sort((a, b) => new Date(a.ticketDate) - new Date(b.ticketDate))
+  //   : [];
 
   const handleClick = (url) => {
     if (url) {
@@ -52,8 +52,8 @@ export default function TicketAlertModal({ open, onClose }) {
     }
   };
 
-  if (isLoading || isLoading) return <p>Loading...</p>;
-  if (isError || isError) return <p>Error: {error.message}</p>;
+  // if (isLoading || isLoading) return <p>Loading...</p>;
+  // if (isError || isError) return <p>Error: {error.message}</p>;
 
   return (
     <Dialog open={open} onClose={onClose} className="relative z-10">
@@ -120,7 +120,7 @@ export default function TicketAlertModal({ open, onClose }) {
                     role="list"
                     className="divide-y divide-gray-100 absolute inset-0 overflow-y-auto"
                   >
-                    {sortedPrmcs.map((prmc) => (
+                    {/* {sortedPrmcs.map((prmc) => (
                       <li
                         key={prmc.id}
                         className="flex justify-between gap-x-6 py-5 px-3 mx-4 items-center transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
@@ -161,13 +161,13 @@ export default function TicketAlertModal({ open, onClose }) {
                           </p>
                           <p className="mt-1 text-xs leading-5 text-gray-500">
                             {prmc.ticketDate}
-                            {/* <time dateTime={prmc.lastSeenDateTime}> */}
-                            {/* {prmc.ticketDate} */}
-                            {/* </time> */}
+                            <time dateTime={prmc.lastSeenDateTime}>
+                            {prmc.ticketDate}
+                            </time>
                           </p>
                         </div>
                       </li>
-                    ))}
+                    ))} */}
                   </ul>
                 </div>
               </div>

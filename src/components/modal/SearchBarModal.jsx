@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useFetchRegions, useFetchTheaters } from "../../hooks/useTheaters";
-import {
-  useFetchFavoriteTheaters,
-  useAddFavoriteTheater,
-  useRemoveFavoriteTheater,
-} from "../../hooks/useFavoriteTheaters";
+import { useFetchRegions } from "../../hooks/useTheaters";
+// import {
+//   useFetchFavoriteTheaters,
+//   useAddFavoriteTheater,
+//   useRemoveFavoriteTheater,
+// } from "../../hooks/useFavoriteTheaters";
 import useTheaterStore from "../../zustand/useTheatersStore";
 import Modal from "../modal/Modal";
 import { TECollapse } from "tw-elements-react";
@@ -30,34 +30,34 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     error: Rerror,
   } = useFetchRegions();
 
-  const { setSelectedRegion, selectedRegion } = useTheaterStore((state) => ({
-    selectedRegion: state.selectedRegion,
-    setSelectedRegion: state.setSelectedRegion,
-    setRegions: state.setRegions,
-  }));
+  // const { setSelectedRegion, selectedRegion } = useTheaterStore((state) => ({
+  //   selectedRegion: state.selectedRegion,
+  //   setSelectedRegion: state.setSelectedRegion,
+  //   setRegions: state.setRegions,
+  // }));
 
   // 공연장
-  const {
-    data: theaters,
-    isLoading: isTLoading,
-    isError: isTError,
-    error: Terror,
-  } = useFetchTheaters(selectedRegion);
+  // const {
+  //   data: theaters,
+  //   isLoading: isTLoading,
+  //   isError: isTError,
+  //   error: Terror,
+  // } = useFetchTheaters(selectedRegion);
 
   // 즐겨찾기
-  const {
-    data: favoriteTheaters,
-    isLoading: isFavLoading,
-    isError: isFavError,
-    error: FavError,
-  } = useFetchFavoriteTheaters();
+  // const {
+  //   data: favoriteTheaters,
+  //   isLoading: isFavLoading,
+  //   isError: isFavError,
+  //   error: FavError,
+  // } = useFetchFavoriteTheaters();
 
-  const { mutate: addFavorite } = useAddFavoriteTheater();
-  const { mutate: removeFavorite } = useRemoveFavoriteTheater();
+  // const { mutate: addFavorite } = useAddFavoriteTheater();
+  // const { mutate: removeFavorite } = useRemoveFavoriteTheater();
 
-  const handleButtonClick = (regionId, event) => {
+  const handleButtonClick = (region, event) => {
     event.preventDefault();
-    setSelectedRegion(regionId);
+    setSelectedRegion(region);
   };
 
   const { isAuthenticated } = useAuthStore((state) => ({
@@ -71,31 +71,28 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   };
 
   useEffect(() => {
-    console.log(selectedRegion);
-    console.log(theaters);
     console.log(isAuthenticated);
-    console.log(favoriteTheaters); // 추가된 로그
-  }, [selectedRegion, theaters, isAuthenticated, favoriteTheaters]);
+    console.log(regions);
+  }, []);
 
-  const [selectedVenue, setSelectedVenue] = useState(null);
+  // const [selectedVenue, setSelectedVenue] = useState(null);
 
-  const handleAddFavoriteClick = (theater) => {
-    // if (!isAuthenticated) {
-    //   console.log("로그인 후 즐겨찾기 추가");
-    //   return;
-    // }
-    if (favoriteTheaters.some((fav) => fav.id === theater.id)) {
-      // If the theater is already in favorites, remove it
-      removeFavorite(theater.id);
-    } else {
-      // Otherwise, add it to favorites
-      addFavorite(theater.venue, theater.id);
-    }
-  };
+  // const handleAddFavoriteClick = (theater) => {
+  //   // if (!isAuthenticated) {
+  //   //   console.log("로그인 후 즐겨찾기 추가");
+  //   //   return;
+  //   // }
+  //   if (favoriteTheaters.some((fav) => fav.id === theater.id)) {
+  //     // If the theater is already in favorites, remove it
+  //     removeFavorite(theater.id);
+  //   } else {
+  //     // Otherwise, add it to favorites
+  //     addFavorite(theater.venue, theater.id);
+  //   }
+  // };
 
-  if (isRLoading || isTLoading || isFavLoading) return <p>Loading...</p>;
-  if (isRError || isTError || isFavError)
-    return <p>Error: {Rerror.message || Terror.message || FavError.message}</p>;
+  if (isRLoading) return <p>Loading...</p>;
+  if (isRError) return <p>Error: {Rerror.message}</p>;
 
   return (
     <Modal isVisible={isVisible} onClose={onClose}>
@@ -145,7 +142,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                   height: "100%",
                 }}
               >
-                <List>
+                {/* <List>
                   {favoriteTheaters.length > 0 ? (
                     favoriteTheaters.map((theater) => (
                       <ListItem
@@ -193,7 +190,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                   ) : (
                     <p>No favorite theaters</p>
                   )}
-                </List>
+                </List> */}
               </div>
             </div>
           </TECollapse>
@@ -214,10 +211,10 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           </ListItem>
           <RegionItems style={{ height: "calc(100% - (48px + 2rem))" }}>
             <div>
-              {regions.map((region) => (
+              {regions.map((region, index) => (
                 <ListItem
-                  key={region.id}
-                  onClick={(event) => handleButtonClick(region.id, event)}
+                  key={index}
+                  onClick={(event) => handleButtonClick(region.gugunnms, event)}
                   className="block cursor-pointer rounded-lg p-2 text-left transition duration-500 hover:bg-neutral-100 hover:text-neutral-500 focus:bg-neutral-100 focus:text-neutral-500 focus:ring-0 dark:hover:bg-neutral-600 dark:hover:text-neutral-200 dark:focus:bg-neutral-600 dark:focus:text-neutral-200"
                   style={
                     selectedRegion === region.id
@@ -228,7 +225,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                       : { backgroundColor: "rgb(255,255,255)" }
                   }
                 >
-                  {region.region}
+                  {region.gugunnms}
                 </ListItem>
               ))}
             </div>
@@ -258,7 +255,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           <p>공연장 별 공연 정보를 확인하세요! (지역 > 공연장 선택)</p>
           <p>자주 찾는 공연장을 즐겨찾기에 추가할 수 있습니다.</p>
         </div>
-        {selectedRegion ? (
+        {/* {selectedRegion ? (
           theaters.venues ? (
             <VenueList>
               {theaters.venues.map((theater) => (
@@ -311,7 +308,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           )
         ) : (
           <p>원하는 지역을 선택하세요!</p>
-        )}
+        )} */}
       </div>
     </Modal>
   );

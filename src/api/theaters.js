@@ -2,15 +2,15 @@ import useAuthStore from "../zustand/useAuthStore";
 import axiosInstance from "./axiosInstance";
 
 //찐
-// export const fetchRegions = async () => {
-//   try {
-//     const response = await axiosInstance.get(`/api/regions?sidonm=서울`);
-//     return response.data;
-//   } catch {
-//     console.error("theater API 요청 실패:", error);
-//     throw new Error(error.response?.data?.message || "theater API 요청 실패");
-//   }
-// };
+export const fetchRegions = async () => {
+  try {
+    const response = await axiosInstance.get(`/region?sidonm=서울`);
+    return response.data;
+  } catch {
+    console.error("theater API 요청 실패:", error);
+    throw new Error(error.response?.data?.message || "theater API 요청 실패");
+  }
+};
 //
 // export const fetchTheaters = async (region) => {
 //   try {
@@ -33,38 +33,6 @@ import axiosInstance from "./axiosInstance";
 //     );
 //   }
 // };
-
-export const fetchRegions = async () => {
-  try {
-    const response = await axiosInstance.get(`/regions`);
-    return response.data;
-  } catch {
-    console.error("region API 요청 실패:", error);
-    throw new Error(error.response?.data?.message || "region API 요청 실패");
-  }
-};
-
-export const fetchTheaters = async (region) => {
-  try {
-    const response = await axiosInstance.get(`/regions/${region}`);
-    return response.data;
-  } catch {
-    console.error("theater API 요청 실패:", error);
-    throw new Error(error.response?.data?.message || "theater API 요청 실패");
-  }
-};
-
-export const fetchSearchTheaters = async () => {
-  try {
-    const response = await axiosInstance.get(`/theaters`);
-    return response.data;
-  } catch {
-    console.error("search theater API 요청 실패:", error);
-    throw new Error(
-      error.response?.data?.message || "search theater API 요청 실패"
-    );
-  }
-};
 
 // export const addFavoriteTheaters = async (theaterId) => {
 //   const { accesstoken } = useAuthStore((state) => state.accessToken);

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import SearchBar from "../components/searchbar/SearchBar";
-import usePrmcStore from "../zustand/usePrmcStore";
+// import usePrmcStore from "../zustand/usePrmcStore";
 import "./HomePage.styled.css";
 import axiosInstance from "../api/axiosInstance";
 
 const HomePage = () => {
-  const { getRankedList, getUpcomingList, fetchPrmcs } = usePrmcStore();
+  // const { getRankedList, getUpcomingList, fetchPrmcs } = usePrmcStore();
 
-  useEffect(() => {
-    fetchPrmcs();
-  }, [fetchPrmcs]);
+  // useEffect(() => {
+  //   fetchPrmcs();
+  // }, [fetchPrmcs]);
 
-  const rankedList = getRankedList();
-  const upcomingList = getUpcomingList();
+  // const rankedList = getRankedList();
+  // const upcomingList = getUpcomingList();
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -52,7 +52,7 @@ const HomePage = () => {
             나눌 수 있습니다.
           </span>
           <SearchBar style={{ margin: "0 auto" }} />
-          <div className="slider mt-12">
+          {/* <div className="slider mt-12">
             <ul className="flex slides">
               {rankedList.map((item) => (
                 <li className="slide" key={item.id}>
@@ -64,10 +64,10 @@ const HomePage = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       </section>
-      <section
+      {/* <section
         style={{
           position: "relative",
           height: "70vh",
@@ -140,7 +140,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

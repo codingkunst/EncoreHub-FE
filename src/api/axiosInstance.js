@@ -3,7 +3,7 @@ import axios from "axios";
 import useAuthStore from "../zustand/useAuthStore";
 import { refreshAccessToken } from "./auth";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_SERVER_URL;
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,

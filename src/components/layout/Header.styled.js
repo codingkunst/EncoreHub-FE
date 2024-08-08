@@ -56,7 +56,6 @@ export const Nav = styled.nav`
 export const StyledButton = tw.button`
   inline-block 
   rounded-full 
-  bg-primary 
   px-6 
   pb-2 
   pt-2.5 

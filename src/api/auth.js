@@ -67,42 +67,42 @@ export const refreshAccessToken = async () => {
   }
 };
 
-export const getUser = async (userId) => {
-  try {
-    const response = await axiosInstance.get(`/member/${userId}`);
-    return response.data;
-  } catch (error) {
-    throw {
-      response: {
-        data: {
-          message: error.message || "Failed to fetch user",
-        },
-      },
-    };
-  }
-};
+// export const getUser = async (userId) => {
+//   try {
+//     const response = await axiosInstance.get(`/member/${userId}`);
+//     return response.data;
+//   } catch (error) {
+//     throw {
+//       response: {
+//         data: {
+//           message: error.message || "Failed to fetch user",
+//         },
+//       },
+//     };
+//   }
+// };
 
-export const updateUser = async (userId, userData) => {
-  const response = await axiosInstance.put(`/member/${userId}`, userData);
-  return response.data;
-};
+// export const updateUser = async (userId, userData) => {
+//   const response = await axiosInstance.put(`/member/${userId}`, userData);
+//   return response.data;
+// };
 
-// 논리적 탈퇴 (회원 비활성화)
-export const deactivateUser = async (userId) => {
-  const response = await axiosInstance.patch(`/member/${userId}/deactivate`);
-  return response.data;
-};
+// // 논리적 탈퇴 (회원 비활성화)
+// export const deactivateUser = async (userId) => {
+//   const response = await axiosInstance.patch(`/member/${userId}/deactivate`);
+//   return response.data;
+// };
 
-//Social Login
-export const kakaoLogin = async (socialData) => {
-  const response = await axiosInstance.post("/member/login/kakao", socialData);
-  return response.data;
-};
-export const naverLogin = async (socialData) => {
-  const response = await axiosInstance.post("/member/login/naver", socialData);
-  return response.data;
-};
-export const googleLogin = async (socialData) => {
-  const response = await axiosInstance.post("/member/login/google", socialData);
-  return response.data;
-};
+// //Social Login
+// export const kakaoLogin = async (socialData) => {
+//   const response = await axiosInstance.post("/member/login/kakao", socialData);
+//   return response.data;
+// };
+// export const naverLogin = async (socialData) => {
+//   const response = await axiosInstance.post("/member/login/naver", socialData);
+//   return response.data;
+// };
+// export const googleLogin = async (socialData) => {
+//   const response = await axiosInstance.post("/member/login/google", socialData);
+//   return response.data;
+// };
