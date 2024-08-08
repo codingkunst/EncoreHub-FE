@@ -5,10 +5,10 @@ export const fetchFavoriteTheaters = async () => {
   return response.data;
 };
 
-export const addFavoriteTheater = async (theater, theaterId) => {
+export const addFavoriteTheater = async (venue, venueId) => {
   const response = await axiosInstance.post("/favoriteTheater", {
-    venue: theater,
-    theaterId,
+    venue,
+    venueId,
   });
   return response.data;
 };

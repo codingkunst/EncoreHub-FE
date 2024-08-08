@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import { useFetchRegions, useFetchTheaters } from "../../hooks/useTheaters";
+import {
+  useFetchFavoriteTheaters,
+  useAddFavoriteTheater,
+  useRemoveFavoriteTheater,
+} from "../../hooks/useFavoriteTheaters";
 import useTheaterStore from "../../zustand/useTheatersStore";
 import Modal from "../modal/Modal";
 import { TECollapse } from "tw-elements-react";
@@ -17,8 +22,7 @@ import {
 import useAuthStore from "../../zustand/useAuthStore";
 
 const SearchBarModal = ({ isVisible, onClose }) => {
-  //지역
-
+  // 지역
   const {
     data: regions,
     isLoading: isRLoading,
@@ -32,14 +36,24 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     setRegions: state.setRegions,
   }));
 
-  //공연장
-
+  // 공연장
   const {
     data: theaters,
     isLoading: isTLoading,
     isError: isTError,
     error: Terror,
   } = useFetchTheaters(selectedRegion);
+
+  // 즐겨찾기
+  const {
+    data: favoriteTheaters,
+    isLoading: isFavLoading,
+    isError: isFavError,
+    error: FavError,
+  } = useFetchFavoriteTheaters();
+
+  const { mutate: addFavorite } = useAddFavoriteTheater();
+  const { mutate: removeFavorite } = useRemoveFavoriteTheater();
 
   const handleButtonClick = (regionId, event) => {
     event.preventDefault();
@@ -60,20 +74,28 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     console.log(selectedRegion);
     console.log(theaters);
     console.log(isAuthenticated);
-  }, [{ selectedRegion, theaters, isAuthenticated }]);
+    console.log(favoriteTheaters); // 추가된 로그
+  }, [selectedRegion, theaters, isAuthenticated, favoriteTheaters]);
 
-  const [addFavClick, setAddFavClick] = useState(false);
+  const [selectedVenue, setSelectedVenue] = useState(null);
 
-  const handleAddFavoriteClick = () => {
-    !isAuthenticated
-      ? console.log("로그인 후 즐겨찾기 추가")
-      : console.log("즐겨찾기 추가 성공!");
-    setAddFavClick(true);
+  const handleAddFavoriteClick = (theater) => {
+    // if (!isAuthenticated) {
+    //   console.log("로그인 후 즐겨찾기 추가");
+    //   return;
+    // }
+    if (favoriteTheaters.some((fav) => fav.id === theater.id)) {
+      // If the theater is already in favorites, remove it
+      removeFavorite(theater.id);
+    } else {
+      // Otherwise, add it to favorites
+      addFavorite(theater.venue, theater.id);
+    }
   };
 
-  if (isRLoading || isTLoading) return <p>Loading...</p>;
-  if (isRError || isTError)
-    return <p>Error: {Rerror.message || Terror.message}</p>;
+  if (isRLoading || isTLoading || isFavLoading) return <p>Loading...</p>;
+  if (isRError || isTError || isFavError)
+    return <p>Error: {Rerror.message || Terror.message || FavError.message}</p>;
 
   return (
     <Modal isVisible={isVisible} onClose={onClose}>
@@ -123,11 +145,60 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                   height: "100%",
                 }}
               >
-                <List></List>
+                <List>
+                  {favoriteTheaters.length > 0 ? (
+                    favoriteTheaters.map((theater) => (
+                      <ListItem
+                        key={theater.id}
+                        className="flex justify-between items-center"
+                      >
+                        <span>{theater.venue}</span>
+                        <button onClick={() => handleAddFavoriteClick(theater)}>
+                          {favoriteTheaters.some(
+                            (fav) => fav.id === theater.id
+                          ) ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="rgb(138, 14, 196)"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="rgb(138, 14, 196)"
+                              className="h-6 w-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="rgb(138, 14, 196)"
+                              className="h-6 w-6"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                              />
+                            </svg>
+                          )}
+                        </button>
+                      </ListItem>
+                    ))
+                  ) : (
+                    <p>No favorite theaters</p>
+                  )}
+                </List>
               </div>
             </div>
           </TECollapse>
         </StyledFavWrap>
+
         {/* 지역 */}
         <RegionList>
           <ListItem
@@ -141,7 +212,6 @@ const SearchBarModal = ({ isVisible, onClose }) => {
               <p>서울</p>
             </button>
           </ListItem>
-          <div></div>
           <RegionItems style={{ height: "calc(100% - (48px + 2rem))" }}>
             <div>
               {regions.map((region) => (
@@ -152,7 +222,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                   style={
                     selectedRegion === region.id
                       ? {
-                          backgroundColor: "rgb(138, 14, 196",
+                          backgroundColor: "rgb(138, 14, 196)",
                           color: "rgb(255,255,255)",
                         }
                       : { backgroundColor: "rgb(255,255,255)" }
@@ -165,16 +235,15 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           </RegionItems>
         </RegionList>
       </StyledRegionWrapper>
+
       {/* 공연장 */}
       <div
         style={{
           width: "60%",
           margin: "0 1rem",
           flexGrow: 1,
-          // paddingTop: "calc(56px + 1.5rem)",
           height: "100%",
           overflow: "hidden",
-          // padding: ".5rem 0",
         }}
       >
         <div
@@ -201,27 +270,44 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                   <button style={{ marginRight: "5px" }}>
                     {theater.venue}
                   </button>
-                  <button onClick={handleAddFavoriteClick}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill={isAuthenticated ? "rgb(255,255,255)" : "#F5F5F5"}
-                      viewBox="0 0 24 24"
-                      // strokeWidth="1.5"
-                      stroke={isAuthenticated ? "rgb(138, 14, 196)" : "#f5f5f5"}
-                      className="size-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                      />
-                    </svg>
+                  <button onClick={() => handleAddFavoriteClick(theater)}>
+                    {favoriteTheaters.some((fav) => fav.id === theater.id) ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="rgb(138, 14, 196)"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="rgb(138, 14, 196)"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                        />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="rgb(138, 14, 196)"
+                        className="h-6 w-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                        />
+                      </svg>
+                    )}
                   </button>
                 </VenueItem>
               ))}
             </VenueList>
           ) : (
-            <p>no region</p>
+            <p>No theaters available</p>
           )
         ) : (
           <p>원하는 지역을 선택하세요!</p>

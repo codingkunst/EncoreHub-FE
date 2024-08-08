@@ -30,7 +30,7 @@ export const register = async (userData) => {
     const response = await axiosInstance.post(`/api/member/signup`, userData, {
       headers: {
         "Content-Type": "application/json",
-        // 'Accept': 'application/json',
+        Accept: "application/json",
       },
     });
     return response.data;

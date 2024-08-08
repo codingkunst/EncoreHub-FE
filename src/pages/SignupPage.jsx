@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRegister } from "../hooks/useAuth";
 import LoginForms from "../components/form/LoginForms";
-import { TEInput } from "./SignupPage.styled";
+import { StyledInputWrap, TEInput } from "./SignupPage.styled";
 
 const SignUpPage = () => {
   const {
@@ -33,120 +33,173 @@ const SignUpPage = () => {
         >
           <div>
             <span className="text-3xl inline-block pb-8">회원가입</span>
-            <TEInput
-              type="email"
-              name="email"
-              placeholder="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email address",
-                },
-              })}
-              error={errors.email?.message}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm border-neutral-100	border border-solid"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.email && <span>{errors.email.message}</span>}
-            <TEInput
-              type="text"
-              name="username"
-              placeholder="이름"
-              {...register("username", {
-                required: "Username is required",
-                minLength: {
-                  value: 3,
-                  message: "Username must be at least 3 characters",
-                },
-              })}
-              error={errors.name?.message}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.name && <span>{errors.name.message}</span>}
-            <TEInput
-              type="text"
-              name="nickname"
-              placeholder="닉네임"
-              {...register("nickname", {
-                required: "Nickname is required",
-                minLength: {
-                  value: 3,
-                  message: "Nickname must be at least 3 characters",
-                },
-              })}
-              error={errors.nickname?.message}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.nickname && <span>{errors.nickname.message}</span>}
-            <TEInput
-              type="tel"
-              name="phoneNumber"
-              placeholder="전화번호"
-              {...register("phoneNumber", {
-                required: "Phone Number is required",
-                pattern: {
-                  value: /^[0-9]{10,15}$/,
-                  message: "Invalid phone Number",
-                },
-              })}
-              error={errors.phoneNumber?.message}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.phoneNumber && <span>{errors.phoneNumber.message}</span>}
-            <TEInput
-              type="password"
-              name="password"
-              placeholder="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
-            <TEInput
-              type="password"
-              name="confirmPassword"
-              placeholder="confirm password"
-              {...register("confirmPassword", {
-                required: "Please confirm your password",
-                validate: (value) =>
-                  value === getValues("password") || "Passwords do not match",
-              })}
-              error={errors.confirmPassword?.message}
-              // onChange={handleRegisterChange}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.confirmPassword && (
-              <span>{errors.confirmPassword.message}</span>
-            )}
+            <StyledInputWrap>
+              <TEInput
+                type="email"
+                name="email"
+                placeholder="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "올바른 이메일 형식을 입력해주세요.",
+                  },
+                })}
+                error={errors.email?.message}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm border-neutral-100	border border-solid"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.email && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.email.message}
+                </p>
+              )}
+            </StyledInputWrap>
+            <StyledInputWrap>
+              <TEInput
+                type="text"
+                name="username"
+                placeholder="이름"
+                {...register("username", {
+                  required: "Username is required",
+                  // minLength: {
+                  //   value: 3,
+                  //   message: "Username must be at least 3 characters",
+                  // },
+                })}
+                error={errors.name?.message}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.name && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.name.message}
+                </p>
+              )}
+            </StyledInputWrap>
+            <StyledInputWrap>
+              <TEInput
+                type="text"
+                name="nickname"
+                placeholder="닉네임"
+                {...register("nickname", {
+                  required: "Nickname is required",
+                  minLength: {
+                    value: 3,
+                    message: "3글자 이상의 닉네임을 입력해주세요.",
+                  },
+                })}
+                error={errors.nickname?.message}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.nickname && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.nickname.message}
+                </p>
+              )}
+            </StyledInputWrap>
+            <StyledInputWrap>
+              <TEInput
+                type="tel"
+                name="phoneNumber"
+                placeholder="전화번호"
+                {...register("phoneNumber", {
+                  required: "Phone Number is required",
+                  pattern: {
+                    value: /^[0-9]{10,15}$/,
+                    message: "올바른 전화번호 형식을 입력해주세요.",
+                  },
+                })}
+                error={errors.phoneNumber?.message}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.phoneNumber && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.phoneNumber.message}
+                </p>
+              )}
+            </StyledInputWrap>
+            <StyledInputWrap>
+              <TEInput
+                type="password"
+                name="password"
+                placeholder="password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "6자리 이상의 비밀번호를 입력해주세요.",
+                  },
+                })}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.password && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.password.message}
+                </p>
+              )}
+            </StyledInputWrap>
+            <StyledInputWrap>
+              <TEInput
+                type="password"
+                name="confirmPassword"
+                placeholder="confirm password"
+                {...register("confirmPassword", {
+                  required: "Please confirm your password",
+                  validate: (value) =>
+                    value === getValues("password") ||
+                    "입력하신 비밀번호가 일치하지 않습니다.",
+                })}
+                error={errors.confirmPassword?.message}
+                // onChange={handleRegisterChange}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.confirmPassword && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.confirmPassword.message}
+                </p>
+              )}
+            </StyledInputWrap>
             {/* <!-- Submit button --> */}
             <button
               type="submit"

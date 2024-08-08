@@ -10,7 +10,7 @@ const useFavoriteTheatersStore = create((set) => ({
   removeFavoriteTheater: (theaterId) =>
     set((state) => ({
       favoriteTheaters: state.favoriteTheaters.filter(
-        (theater) => theater.mt20id !== theaterId
+        (theater) => theater.id !== theaterId
       ),
     })),
 }));

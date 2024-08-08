@@ -1092,82 +1092,82 @@
     {
       "venue": "venue1venue2venue2",
       "id": 112,
-      "venueId": 11
+      "venueId": 112
     },
     {
       "venue": "venvenue1",
       "id": 113,
-      "venueId": 11
+      "venueId": 113
     },
     {
       "venue": "venue1",
       "id": 114,
-      "venueId": 11
+      "venueId": 114
     },
     {
       "venue": "venue1",
       "id": 115,
-      "venueId": 11
+      "venueId": 115
     },
     {
       "venue": "venuevenven1",
       "id": 116,
-      "venueId": 11
+      "venueId": 116
     },
     {
       "venue": "venueven1",
       "id": 117,
-      "venueId": 11
+      "venueId": 117
     },
     {
       "venue": "venue1",
       "id": 118,
-      "venueId": 11
+      "venueId": 118
     },
     {
       "venue": "venuevenvenven1",
       "id": 119,
-      "venueId": 11
+      "venueId": 119
     },
     {
       "venue": "venue1",
       "id": 1111,
-      "venueId": 11
+      "venueId": 1111
     },
     {
       "venue": "venue1",
       "id": 1110,
-      "venueId": 11
+      "venueId": 1110
     },
     {
       "venue": "venue1",
       "id": 1112,
-      "venueId": 11
+      "venueId": 1112
     },
     {
       "venue": "venueven2",
       "id": 1113,
-      "venueId": 11
+      "venueId": 1113
     },
     {
       "venue": "venuevenven2",
       "id": 1114,
-      "venueId": 11
+      "venueId": 1114
     },
     {
       "venue": "venue2",
       "id": 1115,
-      "venueId": 11
+      "venueId": 1115
     },
     {
       "venue": "venueven2",
       "id": 1116,
-      "venueId": 11
+      "venueId": 1116
     },
     {
       "venue": "venue2",
       "id": 1117,
-      "venueId": 11
+      "venueId": 1117
     }
   ],
   "prmc": [
@@ -1252,7 +1252,32 @@
       "rnum": 10
     }
   ],
-  "favoriteTheater": [],
+  "favoriteTheater": [
+    {
+      "id": "d323",
+      "venue": "종로구venue1venue2"
+    },
+    {
+      "id": "7d99",
+      "venue": "종로구venue1venue2venue2"
+    },
+    {
+      "id": "3315",
+      "venue": "종로구venvenue1"
+    },
+    {
+      "id": "4500",
+      "venue": "종로구venue1venue2"
+    },
+    {
+      "id": "fef4",
+      "venue": "종로구venvenue1"
+    },
+    {
+      "id": "f999",
+      "venue": "종로구venue1"
+    }
+  ],
   "likePrmc": [
     {
       "id": "1",

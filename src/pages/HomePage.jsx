@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SearchBar from "../components/searchbar/SearchBar";
 import usePrmcStore from "../zustand/usePrmcStore";
 import "./HomePage.styled.css";
+import axiosInstance from "../api/axiosInstance";
 
 const HomePage = () => {
   const { getRankedList, getUpcomingList, fetchPrmcs } = usePrmcStore();
@@ -12,6 +13,28 @@ const HomePage = () => {
 
   const rankedList = getRankedList();
   const upcomingList = getUpcomingList();
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.post("/api/theater/save-list");
+        setData(response.data);
+        console.log("success", response);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <div>
       <section style={{ height: "calc(100vh - 75px)" }}>

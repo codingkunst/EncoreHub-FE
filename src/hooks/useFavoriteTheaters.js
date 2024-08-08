@@ -22,7 +22,7 @@ export const useFetchFavoriteTheaters = () => {
   });
 };
 
-export const useaddFavoriteTheater = () => {
+export const useAddFavoriteTheater = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: addFavoriteTheater,

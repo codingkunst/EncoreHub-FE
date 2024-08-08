@@ -35,41 +35,59 @@ const LoginPage = () => {
         <form onSubmit={handleSubmit(handleLoginSubmit)}>
           <div>
             <span className="text-3xl inline-block pb-8">로그인</span>
-            <TEInput
-              type="email"
-              placeholder="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Invalid email address",
-                },
-              })}
-              error={errors.email?.message}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm border-neutral-100 border border-solid"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.email && <span>{errors.email.message}</span>}
-            <TEInput
-              type="password"
-              placeholder="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              size="lg"
-              className="mb-6 px-7 pb-2.5 pt-3 text-sm"
-              style={{
-                border: "1px solid rgb(245,245,245)",
-              }}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
+            <div className="relative w-full h-full">
+              <TEInput
+                type="email"
+                placeholder="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "올바른 이메일 형식을 입력해주세요.",
+                  },
+                })}
+                error={errors.email?.message}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm border-neutral-100 border border-solid"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {errors.email && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.email.message}
+                </p>
+              )}
+            </div>
+            <div className="relative w-full h-full">
+              <TEInput
+                type="password"
+                placeholder="password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                size="lg"
+                className="mb-6 px-7 pb-2.5 pt-3 text-sm"
+                style={{
+                  border: "1px solid rgb(245,245,245)",
+                }}
+              />
+              {/* {errors.password && (
+                <p
+                  className="absolute right-4 top-0 text-sm text-red-400"
+                  style={{ lineHeight: "44px" }}
+                >
+                  {errors.password.message}
+                </p>
+              )} */}
+            </div>
             {/* <!-- Submit button --> */}
             <button
               type="submit"

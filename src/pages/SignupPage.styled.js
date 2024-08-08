@@ -32,3 +32,9 @@ border-neutral-100
 border 
 border-solid
 `;
+
+export const StyledInputWrap = tw.div`
+ w-full
+ h-full
+ relative
+`;
