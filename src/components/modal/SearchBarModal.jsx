@@ -20,6 +20,7 @@ import {
   StyledFav,
 } from "./SearchBarModal.styled";
 import useAuthStore from "../../zustand/useAuthStore";
+import { fetchRegions } from "../../api/theaters";
 
 const SearchBarModal = ({ isVisible, onClose }) => {
   // 지역
@@ -30,13 +31,21 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     error: Rerror,
   } = useFetchRegions();
 
-  const { setSelectedRegion, selectedRegion, setRegions } = useTheaterStore(
-    (state) => ({
-      selectedRegion: state.selectedRegion,
-      setSelectedRegion: state.setSelectedRegion,
-      setRegions: state.setRegions,
-    })
-  );
+  const {
+    storeRegions,
+    setSelectedRegion,
+    selectedRegion,
+    setRegions,
+    selectedTheater,
+    setSelectedTheater,
+  } = useTheaterStore((state) => ({
+    storeRegions: state.region,
+    selectedRegion: state.selectedRegion,
+    setSelectedRegion: state.setSelectedRegion,
+    setRegions: state.setRegions,
+    selectedTheater: state.selectedTheater,
+    setSelectedTheater: state.setSelectedTheater,
+  }));
 
   // 공연장;
   const {
@@ -74,10 +83,19 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   };
 
   useEffect(() => {
+    if (regions) {
+      setRegions(regions.gugunnms);
+    }
+  }, [regions, setRegions]);
+
+  useEffect(() => {
+    fetchRegions();
     console.log(isAuthenticated);
     console.log(regions);
     console.log(theaters);
-  }, [regions, theaters]);
+    console.log(storeRegions);
+    console.log(selectedTheater);
+  }, [fetchRegions(), selectedTheater, storeRegions]);
 
   // const [selectedVenue, setSelectedVenue] = useState(null);
 
@@ -94,6 +112,11 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   //     addFavorite(theater.venue, theater.id);
   //   }
   // };
+
+  const setTheaterClickHandler = (theater, pfmc, event) => {
+    setSelectedTheater(theater);
+    event.preventDefault();
+  };
 
   if (isRLoading) return <p>Loading...</p>;
   if (isRError) return <p>Error: {Rerror.message}</p>;
@@ -264,21 +287,28 @@ const SearchBarModal = ({ isVisible, onClose }) => {
             <VenueList>
               {theaters.map((theater, index) => (
                 <VenueItem
-                  key={theater.index}
+                  key={index}
                   className="inline-block rounded px-6 pb-2 pt-2.5 text-s font-medium uppercase leading-normal text-grey shadow-[0_4px_9px_-4px_#ccc] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   style={{ justifyContent: "space-between" }}
+                  onClick={(event) => {
+                    setTheaterClickHandler(
+                      theater.mt10id,
+                      theater.performances,
+                      event
+                    );
+                  }}
                 >
                   <button style={{ marginRight: "5px" }}>
                     {theater.fcltynm}
                   </button>
-                  {/* <button onClick={() => handleAddFavoriteClick(theater)}>
-                    {favoriteTheaters.some((fav) => fav.id === theater.id) ? (
+                  <button onClick={() => handleAddFavoriteClick(theater)}>
+                    {!isAuthenticated ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        fill="rgb(138, 14, 196)"
+                        fill="rgb(245, 245, 245)"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
-                        stroke="rgb(138, 14, 196)"
+                        stroke="rgb(245, 245, 245"
                         className="h-6 w-6"
                       >
                         <path
@@ -288,6 +318,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                         />
                       </svg>
                     ) : (
+                      // favoriteTheaters.some((fav) => fav.mt10id === theater.mt10id) ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -303,7 +334,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                         />
                       </svg>
                     )}
-                  </button> */}
+                  </button>
                 </VenueItem>
               ))}
             </VenueList>
