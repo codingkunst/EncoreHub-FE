@@ -21,6 +21,7 @@ import {
 } from "./SearchBarModal.styled";
 import useAuthStore from "../../zustand/useAuthStore";
 import { fetchRegions } from "../../api/theaters";
+import { useNavigate } from "react-router-dom";
 
 const SearchBarModal = ({ isVisible, onClose }) => {
   // 지역
@@ -83,12 +84,6 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   };
 
   useEffect(() => {
-    if (regions) {
-      setRegions(regions.gugunnms);
-    }
-  }, [regions, setRegions]);
-
-  useEffect(() => {
     fetchRegions();
     console.log(isAuthenticated);
     console.log(regions);
@@ -113,9 +108,11 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   //   }
   // };
 
-  const setTheaterClickHandler = (theater, pfmc, event) => {
+  const navigate = useNavigate();
+
+  const setTheaterClickHandler = (theater, event) => {
     setSelectedTheater(theater);
-    event.preventDefault();
+    navigate(`/prmcpage/${theater}`);
   };
 
   if (isRLoading) return <p>Loading...</p>;
@@ -291,11 +288,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                   className="inline-block rounded px-6 pb-2 pt-2.5 text-s font-medium uppercase leading-normal text-grey shadow-[0_4px_9px_-4px_#ccc] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
                   style={{ justifyContent: "space-between" }}
                   onClick={(event) => {
-                    setTheaterClickHandler(
-                      theater.mt10id,
-                      theater.performances,
-                      event
-                    );
+                    setTheaterClickHandler(theater.mt10id, event);
                   }}
                 >
                   <button style={{ marginRight: "5px" }}>
