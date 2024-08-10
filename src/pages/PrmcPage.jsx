@@ -20,12 +20,13 @@ const PrmcPage = () => {
         try {
           const url = `/api/theaters/${theaterId}`;
           const response = await axiosInstance.get(url);
-          setPrmcList(response.data.performances);
+          return setPrmcList(response.data.performances);
         } catch (error) {
           console.error("Error fetching performances", error);
         }
       };
       getPrmc();
+      console.log(prmcList);
     }
   }, [theaterId, setSelectedTheater]);
 
@@ -33,14 +34,15 @@ const PrmcPage = () => {
     <div>
       <Container>
         <Row>
-          {prmcList.map((item) => {
-            return (
-              <Col key={item.mt20id} lg={3}>
-                {item.prfnm}
-                <PrmcCard item={item} />
-              </Col>
-            );
-          })}
+          {prmcList.length > 0 &&
+            prmcList.map((item) => {
+              return (
+                <Col key={item.mt20id} lg={3}>
+                  {item.prfnm}
+                  <PrmcCard item={item} />
+                </Col>
+              );
+            })}
         </Row>
       </Container>
     </div>
