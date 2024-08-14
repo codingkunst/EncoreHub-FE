@@ -108,13 +108,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
               value={newComment}
               onChange={onInputComment}
             />
-            <Button
-              variant="secondary"
-              className="mt-2"
-              onClick={onSubmitComment}
-            >
-              등록
-            </Button>
+            <Button variant="secondary" className="mt-2" onClick={onSubmitComment}>등록</Button>
           </Form.Group>
         </Form>
       </Modal.Body>
