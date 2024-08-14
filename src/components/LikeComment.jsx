@@ -17,8 +17,15 @@ const LikeComment = ({ commentId }) => {
   useEffect(() => {
     const getLikes = async () => {
       try {
-        const { data } = await axios.get(`${apiKey}/api/comment/likes/count`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
+        const { data } = await axios.get(`${apiKey}/api/comment/likes/count`, {
+          headers: {
+            "Content-Type": "application/json",
+            AccessToken: accessToken ? accessToken : undefined,
+            RefreshToken: refreshToken ? refreshToken : undefined,
+          },
+        });
         setLikes(data.data.likeCount);
+        console.log(data.data);
       } catch (error) {
         console.error("댓글 좋아요 수 조회 실패:", error);
       }
@@ -33,9 +40,19 @@ const LikeComment = ({ commentId }) => {
 
     // 좋아요 수 UPDATE
     try {
-      axios.post(`${apiKey}/api/comment/likes/toggle`, {commentId: commentId.id}, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}})
+      axios.post(
+        `${apiKey}/api/comment/likes/toggle`,
+        { commentId: commentId.id },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            AccessToken: accessToken ? accessToken : undefined,
+            RefreshToken: refreshToken ? refreshToken : undefined,
+          },
+        }
+      );
     } catch (error) {
-        console.error("댓글 좋아요 업데이트 실패:", error);
+      console.error("댓글 좋아요 업데이트 실패:", error);
     }
   };
 

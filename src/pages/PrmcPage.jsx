@@ -31,7 +31,7 @@ const PrmcPage = () => {
 
   return (
     <div>
-      <h1>공연</h1>
+      <h1>공연 목록</h1>
       <Container>
         <Row>
           {prmcList.map((item) => {

@@ -24,7 +24,16 @@ const ModalDetail = ({ show, handleClose, item }) => {
   useEffect(() => {
     const getComment = async () => {
       try {
-        const { data } = await axios.get(`${apiKey}/api/comments/performance/${item.mt20id}`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined,}});
+        const { data } = await axios.get(
+          `${apiKey}/api/comments/performance/${item.mt20id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              AccessToken: accessToken ? accessToken : undefined,
+              RefreshToken: refreshToken ? refreshToken : undefined,
+            },
+          }
+        );
         console.log("data 확인: ", data);
         setComments(data.data);
       } catch (error) {
@@ -51,9 +60,19 @@ const ModalDetail = ({ show, handleClose, item }) => {
     }
 
     axios
-      .post(`${apiKey}/api/comments`, {mt20id: item.mt20id, content: newComment, parentCommentId: null }, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}})
+      .post(
+        `${apiKey}/api/comments`,
+        { mt20id: item.mt20id, content: newComment, parentCommentId: null },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            AccessToken: accessToken ? accessToken : undefined,
+            RefreshToken: refreshToken ? refreshToken : undefined,
+          },
+        }
+      )
       .then((response) => {
-        console.log('response 확인: ', response)
+        console.log("response 확인: ", response);
         setComments([...comments, response.data.data]);
         setNewComment("");
       })
@@ -66,10 +85,16 @@ const ModalDetail = ({ show, handleClose, item }) => {
   // 댓글 DELETE
   const onDeleteComment = async (commentId) => {
     try {
-      await axios.delete(`${apiKey}/api/comments/${commentId}`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}})
+      await axios.delete(`${apiKey}/api/comments/${commentId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          AccessToken: accessToken ? accessToken : undefined,
+          RefreshToken: refreshToken ? refreshToken : undefined,
+        },
+      });
       setComments(comments.filter((item) => item.id !== commentId));
     } catch (error) {
-      console.error("댓글 삭제 실패:", error)
+      console.error("댓글 삭제 실패:", error);
     }
   };
 
@@ -79,7 +104,11 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <Modal.Title>✨공연 정보✨</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <img src={item.img} alt="Loading..." />
+        <img
+          src={item.poster}
+          alt="Loading..."
+          style={{ maxWidth: "calc(100% - 4rem)" }}
+        />
         <p className="mt-2.5">공연명 : {item.prfnm}</p>
         <p className="mt-2">공연 시작일 : {item.prfpdfrom}</p>
         <p className="mt-2">공연 종료일 : {item.prfpdto}</p>
@@ -117,16 +146,25 @@ const ModalDetail = ({ show, handleClose, item }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <h2 className="mt-2.5 mb-2.5 bg-violet-100">🎯 작성한 공연 리뷰 나오는 곳</h2>
+        <h2 className="mt-2.5 mb-2.5 bg-violet-100">
+          🎯 작성한 공연 리뷰 나오는 곳
+        </h2>
         {comments.map((item) => {
           return (
-            <div key={item.id} className="mb-2.5 p-2.5 rounded border-2 border-gray-400 border-solid bg-stone-100 flex space-x-2.5">
+            <div
+              key={item.id}
+              className="mb-2.5 p-2.5 rounded border-2 border-gray-400 border-solid bg-stone-100 flex space-x-2.5"
+            >
               {/* 댓글 목록 */}
-              <p className="text-justify">{item.content} <LikeComment commentId={item} /></p>
-              
+              <p className="text-justify">
+                {item.content} <LikeComment commentId={item} />
+              </p>
+
               {/* 댓글 수정 버튼 */}
-              <button><FaEdit /></button>
-              
+              <button>
+                <FaEdit />
+              </button>
+
               {/* 댓글 삭제 버튼 */}
               <button onClick={() => onDeleteComment(item.id)}>
                 <MdDeleteForever />
