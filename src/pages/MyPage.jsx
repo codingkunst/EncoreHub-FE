@@ -51,6 +51,7 @@ const MyPage = () => {
   return (
     <div>
       <h3 className="m-4">내가 즐겨찾는 공연</h3>
+<<<<<<< HEAD
       <Carousel
         infinite={true}
         centerMode={true}
@@ -58,6 +59,21 @@ const MyPage = () => {
         autoPlay={true}
       >
         <div>user</div>
+=======
+      <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
+        {/* {likePrmcList.map((item) => {
+          return (
+            <MyPfmcCard key={item.mt20id} item={item} />
+            );
+        })} */}
+        <MyPfmcCard />
+        <MyPfmcCard />
+        <MyPfmcCard />
+        <MyPfmcCard />
+        <MyPfmcCard />
+        <MyPfmcCard />
+        <MyPfmcCard />
+>>>>>>> 9ecb5c77b36d93c8085825da1cc104f43349993f
       </Carousel>
 
       {/* 카카오맵 컴포넌트 */}

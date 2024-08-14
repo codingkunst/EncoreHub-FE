@@ -25,7 +25,11 @@ const LikeComment = ({ commentId }) => {
           },
         });
         setLikes(data.data.likeCount);
+<<<<<<< HEAD
         console.log(data.data);
+=======
+        setLiked(data.data.liked);
+>>>>>>> 9ecb5c77b36d93c8085825da1cc104f43349993f
       } catch (error) {
         console.error("댓글 좋아요 수 조회 실패:", error);
       }
@@ -33,13 +37,10 @@ const LikeComment = ({ commentId }) => {
     getLikes();
   }, [refreshToken, accessToken]);
 
+  // 좋아요 수 UPDATE
   const onLikeHandler = async () => {
-    const newLike = liked ? likes - 1 : likes + 1;
-    setLikes(newLike);
-    setLiked(!liked);
-
-    // 좋아요 수 UPDATE
     try {
+<<<<<<< HEAD
       axios.post(
         `${apiKey}/api/comment/likes/toggle`,
         { commentId: commentId.id },
@@ -51,6 +52,11 @@ const LikeComment = ({ commentId }) => {
           },
         }
       );
+=======
+      const response = await axios.post(`${apiKey}/api/comment/likes/toggle`, {commentId: commentId.id}, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
+      setLiked(response.data.data.liked);
+      setLikes(response.data.data.likeCount);
+>>>>>>> 9ecb5c77b36d93c8085825da1cc104f43349993f
     } catch (error) {
       console.error("댓글 좋아요 업데이트 실패:", error);
     }
@@ -58,9 +64,11 @@ const LikeComment = ({ commentId }) => {
 
   return (
     <div>
-      <button className="text-slate-500" onClick={onLikeHandler}>
-        <AiFillLike /> {/* 좋아요 아이콘 */}
+      {/* 댓글 좋아요 버튼 */}
+      <button className="text-slate-500" onClick={onLikeHandler} disabled={!isAuthenticated}>
+        <AiFillLike />
       </button>
+      {/* 댓글 좋아요 수 */}
       <span className="m-1 text-slate-500">{likes}</span>
     </div>
   );
