@@ -4,7 +4,7 @@ const useTheaterStore = create((set) => ({
   regions: [],
   theaters: [],
   searchTheaters: [],
-  // favoriteTheaters: [],
+  favoriteTheaters: [],
   selectedRegion: null,
   searchTheaterName: null,
   selectedTheater: null,
@@ -16,7 +16,11 @@ const useTheaterStore = create((set) => ({
   setSelectedRegion: (region) => set({ selectedRegion: region }),
   setSelectedTheater: (theater) => set({ selectedTheater: theater }),
   setSearchTheaterName: (theater) => set({ searchTheaterName: theater }),
-  // setFavoriteTheaters: (theater) => set({ favoriteTheaters: theater }),
+  setFavoriteTheaters: (theater) => set({ favoriteTheaters: theater }),
+  isFavorite: (theaterId) => {
+    const state = get();
+    return state.favoriteTheaters.some((theater) => theater.id === theaterId);
+  },
   setError: (error) => set({ error }),
   setLoading: (isLoading) => set({ isLoading }),
 }));

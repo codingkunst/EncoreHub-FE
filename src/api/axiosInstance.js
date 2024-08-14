@@ -12,6 +12,22 @@ const axiosInstance = axios.create({
   },
 });
 
+//헤더 추가
+export const axiosWithAuth = (accessToken, refreshToken) => {
+  return axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 10000,
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-cache",
+      Pragma: "no-cache",
+      Expires: "0",
+      AccessToken: accessToken ? accessToken : undefined,
+      RefreshToken: refreshToken ? refreshToken : undefined,
+    },
+  });
+};
+
 // // 요청 인터셉터
 // axiosInstance.interceptors.request.use(
 //   (config) => {
