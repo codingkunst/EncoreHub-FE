@@ -1,78 +1,17 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import useAuthStore from "../zustand/useAuthStore";
-import MyPfmcCard from "../components/mypfmc/MyPfmcCard";
-import Map from "../components/Map";
+import React from "react";
+import Card from "react-bootstrap/Card";
 
-// 슬라이드 설정
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 4,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  },
-};
-
-const MyPage = () => {
-  const apiKey = import.meta.env.VITE_SERVER_URL;
-
-  const [likePrmcList, setLikePrmcList] = useState([]); // 좋아요한 공연 목록
-
-  // 인가
-  const { isAuthenticated } = useAuthStore((state) => {
-    return {
-      isAuthenticated: state.isAuthenticated,
-    };
-  });
-
-  // 토큰 유무 확인
-  useEffect(() => {
-    console.log(isAuthenticated);
-  }, []);
-
-  // 좋아요한 공연 조회
-  const getLikePfmc = async () => {
-    const { data } = await axios.get(`${apiKey}/api/likes/mypage/performances`);
-    setLikePrmcList(data.data);
-  };
-
-  useEffect(() => {
-    getLikePfmc();
-  }, []);
-
+// 좋아요한 공연 카드
+const MyPfmcCard = () => {
   return (
-    <div>
-      <h3 className="m-4">내가 즐겨찾는 공연</h3>
-      <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
-        {likePrmcList.map((item) => {
-          return (
-            <MyPfmcCard key={item.mt20id} item={item} />
-            );
-        })}
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-      </Carousel>
-
-      {/* 카카오맵 컴포넌트 */}
-      <Map />
-    </div>
+    <Card style={{ width: "18rem" }}>
+      <Card.Img className="w-auto h-auto" variant="top" src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMzEwMDlfMjIw%2FMDAxNjk2ODM2NzYyMTAw.lK2KTpgnTWkKvC3F7WxrMZJNYUmrVaGtPuqtzhIRNnEg.jHQDzqq_52dvxgxlxFXPbGof3ST1JmzTEKC0-t1_iM4g.JPEG.choi1127410%2F%25BD%25C3%25C4%25AB%25B0%25ED%25C6%25F7%25BD%25BA%25C5%25CD.jpg&type=sc960_832" alt="Loading..." />
+      <Card.Body className="d-grid gap-2">
+        <Card.Title>공연명 : item.prfnm</Card.Title>
+        <Card.Text>공연중 : item.prfstate</Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
 
-export default MyPage;
+export default MyPfmcCard;
