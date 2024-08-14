@@ -15,5 +15,5 @@ yarn add react-multi-carousel --save
 yarn json-server db.json --port 4000
 
 <로그인 정보>
-id : codingkunst
+id : possion23@naver.com
 pw : 123456
