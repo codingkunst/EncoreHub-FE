@@ -79,7 +79,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <Modal.Title>✨공연 정보✨</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <img src={item.img} alt="Loading..." />
+        <img src={item.poster} alt="Loading..." style={{maxWidth: "calc(100% - 4rem)"}} />
         <p className="mt-2.5">공연명 : {item.prfnm}</p>
         <p className="mt-2">공연 시작일 : {item.prfpdfrom}</p>
         <p className="mt-2">공연 종료일 : {item.prfpdto}</p>
@@ -90,7 +90,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <p className="mt-2">장르 : {item.genrenm}</p>
         <p className="mt-2 mb-2.5">티켓 가격 : {item.pcseguidance}</p>
         {/* 좋아요, 즐겨찾기 컴포넌트 */}
-        {/* <LikeAndFavorite mt20id={item.mt20id} /> */}
+        <LikeAndFavorite mt20id={item.mt20id} />
         <br />
         <hr className="border-2" />
         <br />
@@ -99,7 +99,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
             <Form.Label>🎯 공연 리뷰</Form.Label>
             <Form.Control
               type="text"
-              placeholder="댓글을 남겨보세요..."
+              placeholder="댓글을 남겨보세요...💬"
               as="textarea"
               rows={2}
               autoFocus
