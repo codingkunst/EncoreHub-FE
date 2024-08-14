@@ -72,7 +72,6 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  font-family: ;
   list-style: none;
   margin-bottom: 0.5rem;
   display: flex;
