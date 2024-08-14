@@ -2,14 +2,14 @@ import { create } from "zustand";
 import Cookies from "js-cookie";
 
 const useAuthStore = create((set) => ({
-  token: Cookies.get("refreshToken") || null,
-  accessToken: localStorage.getItem("accessToken") || null,
+  accessToken: Cookies.get("accessToken") || null,
+  token: localStorage.getItem("refreshToken") || null,
   isAuthenticated: Cookies.get("refreshToken") ? true : false,
   login: (accessToken, refreshToken) => {
     // 리프레시 토큰은 쿠키에 저장
-    Cookies.set("refreshToken", refreshToken);
+    Cookies.set("accessToken", accessToken);
     // 액세스 토큰은 로컬 스토리지에 저장 (새로고침 시 토큰 유지)
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("refreshToken", refreshToken);
 
     set({
       token: refreshToken,
@@ -17,12 +17,12 @@ const useAuthStore = create((set) => ({
       isAuthenticated: true,
     });
 
-    console.log("Access Token saved:", localStorage.getItem("accessToken"));
-    console.log("Refresh Token saved in Cookies:", Cookies.get("refreshToken"));
+    console.log("Refresh Token saved:", localStorage.getItem("refreshToken"));
+    console.log("Access Token saved in Cookies:", Cookies.get("accessToken"));
   },
   logout: () => {
-    Cookies.remove("refreshToken");
-    localStorage.removeItem("accessToken");
+    Cookies.remove("accessToken");
+    localStorage.removeItem("refreshToken");
 
     set({
       token: null,
@@ -30,10 +30,10 @@ const useAuthStore = create((set) => ({
       isAuthenticated: false,
     });
 
-    console.log("Access Token removed:", localStorage.getItem("accessToken"));
+    console.log("Refresh Token removed:", localStorage.getItem("refreshToken"));
     console.log(
-      "Refresh Token removed from Cookies:",
-      Cookies.get("refreshToken")
+      "Access Token removed from Cookies:",
+      Cookies.get("accessToken")
     );
     window.location.reload();
   },

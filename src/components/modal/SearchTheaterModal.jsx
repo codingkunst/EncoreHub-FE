@@ -128,6 +128,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
         </StyledSearchTitle>
         <VenueList>
           {searchTheaterName &&
+            searchTheater.length > 0 &&
             searchTheater.theaters.map((theater) => (
               <VenueItem
                 key={theater.mt10id}

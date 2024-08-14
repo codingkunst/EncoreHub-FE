@@ -1,54 +1,40 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
+import axios from "axios";
 
-const RedirectPage = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const Redirectpage = () => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
+  console.log(code);
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded",
+  };
 
+  // const axiosUrl = axios.create({
+  //   baseURL: "https://api.encorehub.kro.kr", // 백엔드 API의 기본 URL을 설정하세요.
+  //   withCredentials: true, // 쿠키를 포함하여 요청을 보낼 수 있도록 설정합니다.
+  // });
   useEffect(() => {
-    const fetchToken = async () => {
-      if (!code) {
-        setError("Authorization code is missing");
-        setLoading(false);
-        return;
-      }
+    const token = getCookie("accessToken");
 
-      try {
-        // 카카오 로그인 API 호출
-        const response = await axiosInstance.get(
-          `/oauth/kakao/callback?code=${code}`
-        );
-
-        console.log("Logged in successfully:", response.data);
-
-        // 로그인 성공 후 처리 (예: JWT 토큰 저장, 사용자 데이터 설정 등)
-        localStorage.setItem("token", response.data.token);
-
-        // 로그인 후 페이지로 리다이렉트 (홈 페이지나 대시보드 등으로)
-        navigate("/");
-      } catch (err) {
-        console.error("Login failed:", err.message);
-        setError("Login failed. Please try again.");
-      } finally {
-        setLoading(false);
-      }
+    const login = async () => {
+      const response = axiosUrl.get(`/oauth/kakao/callback?code=${code}`, {
+        headers: {
+          accessToken: token,
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      });
+      return response;
     };
-
-    fetchToken();
-  }, [code, navigate]);
+    login();
+    console.log(token);
+  }, []);
 
   return (
     <div>
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
-      {!loading && !error && <p>Redirecting...</p>}
-      <p>로그인 중입니다</p>
+      <h1>로그인 중입니다.</h1>
     </div>
   );
 };
-
-export default RedirectPage;
+export default Redirectpage;

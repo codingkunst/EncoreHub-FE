@@ -104,17 +104,14 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <Modal.Title>✨공연 정보✨</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-<<<<<<< HEAD
-        <img
-          src={item.poster}
-          alt="Loading..."
-          style={{ maxWidth: "calc(100% - 4rem)" }}
-        />
-=======
-        <div style={{display:"flex", justifyContent: "center"}}>
-          <img src={item.poster} alt="Loading..." style={{width:"100%", height: "auto"}} />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img
+            src={item.poster}
+            alt="Loading..."
+            style={{ width: "100%", height: "auto" }}
+          />
         </div>
->>>>>>> 9ecb5c77b36d93c8085825da1cc104f43349993f
+
         <p className="mt-2.5">공연명 : {item.prfnm}</p>
         <p className="mt-2">공연 시작일 : {item.prfpdfrom}</p>
         <p className="mt-2">공연 종료일 : {item.prfpdto}</p>
@@ -141,7 +138,13 @@ const ModalDetail = ({ show, handleClose, item }) => {
               value={newComment}
               onChange={onInputComment}
             />
-            <Button variant="secondary" className="mt-2" onClick={onSubmitComment}>등록</Button>
+            <Button
+              variant="secondary"
+              className="mt-2"
+              onClick={onSubmitComment}
+            >
+              등록
+            </Button>
           </Form.Group>
         </Form>
       </Modal.Body>
