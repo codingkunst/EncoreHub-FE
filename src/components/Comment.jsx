@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LikeComment from "./LikeComment";
 import "./Comment.css";
-import Stack from 'react-bootstrap/Stack';
+import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/Button";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 const Comment = () => {
   const apiKey = import.meta.env.VITE_EXAMPLE_SERVER_URL;
-  
+
   const [comments, setComments] = useState([]); // 댓글 목록
   const [newComment, setNewComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null); // 수정할 댓글 ID
@@ -22,7 +22,8 @@ const Comment = () => {
       .get(`${apiKey}/comments`)
       .then((response) => setComments(response.data))
       .catch((error) => console.error("Error fetching comments:", error));
-  }, []);
+    // console.log(comments);
+  }, [comments]);
 
   // 댓글 입력
   const onInputComment = (event) => {
@@ -99,7 +100,7 @@ const Comment = () => {
       </form>
       {/* 댓글 수정 및 삭제 */}
       <ul className="comment-list">
-        {comments.map((item) => (
+        {/* {comments.map((item) => (
           <li key={item.id} className="comment-item">
             {editCommentId === item.id ? (
               <Stack direction="horizontal" gap={3}>
@@ -127,23 +128,23 @@ const Comment = () => {
             ) : (
               <div>
                 {item.text}
-                <LikeComment /> {/* 댓글 좋아요 컴포넌트 */}
+                <LikeComment /> 
                 <button
                   onClick={() => loadEditForm(item.id, item.text)}
                   className="edit-comment-button"
                 >
-                  <FaEdit /> {/* 수정 아이콘 */}
+                  <FaEdit /> 
                 </button>
                 <button
                   onClick={() => onDeleteComment(item.id)}
                   className="comment-delete-button"
                 >
-                  <MdDeleteForever /> {/* 삭제 아이콘 */}
+                  <MdDeleteForever /> 
                 </button>
               </div>
             )}
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );
