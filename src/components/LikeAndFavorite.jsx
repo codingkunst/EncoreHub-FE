@@ -17,6 +17,7 @@ const LikeAndFavorite = ({ mt20id }) => {
   const getLike = async () => {
     try {
       const { data } = await axios.get(`${apiKey}/api/likes/mypage/performances/`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined }});
+      console.log('댓글 좋아요 데이터: ', data)
       setIsLike(data.data.liked);
     } catch (error) {
       console.error("좋아요 상태 조회 실패 : ", error);
