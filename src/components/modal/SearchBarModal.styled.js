@@ -9,7 +9,7 @@ export const StyledRegionWrapper = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   background-color: rgb(245, 245, 245);
-  padding: 0.5rem;
+  padding: 1rem;
   min-width: calc(240px + 1rem);
   flex-direction: column;
 `;
@@ -72,7 +72,6 @@ export const List = styled.ul`
 `;
 
 export const ListItem = styled.li`
-  font-family: ;
   list-style: none;
   margin-bottom: 0.5rem;
   display: flex;
@@ -93,7 +92,7 @@ export const ListItem = styled.li`
 export const RegionList = styled.div`
   display: flex;
   align-items: flex-start;
-  max-height: 400px;
+  max-height: 100%;
   margin-bottom: 1rem;
   /* width: 20%; */
   min-width: 20%;

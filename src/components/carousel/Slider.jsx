@@ -46,7 +46,7 @@ const Slider = ({ autoPlay, children }) => {
           position: "absolute",
           zIndex: "-1",
           width: "25%",
-          opacity: ".5",
+          opacity: ".3",
           marginLeft: "3rem",
         }}
       >
@@ -67,7 +67,7 @@ const Slider = ({ autoPlay, children }) => {
           position: "absolute",
           zIndex: "-1",
           width: "25%",
-          opacity: ".5",
+          opacity: ".3",
           transparent: ".5",
           marginRight: "5rem",
         }}
@@ -90,7 +90,7 @@ const Slider = ({ autoPlay, children }) => {
           position: "absolute",
           zIndex: "-1",
           width: "25%",
-          opacity: ".5",
+          opacity: ".3",
         }}
       >
         <div className="flex flex-column mb-10 animate-slider2">
