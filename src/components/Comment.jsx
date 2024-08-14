@@ -2,15 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import LikeComment from "./LikeComment";
 import "./Comment.css";
-import Stack from "react-bootstrap/Stack";
+import Stack from 'react-bootstrap/Stack';
 import Button from "react-bootstrap/Button";
 import { MdDeleteForever } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 const Comment = () => {
-  const apiKey = import.meta.env.VITE_EXAMPLE_SERVER_URL;
-
+  const apiKey = import.meta.env.VITE_SERVER_URL;
+  
   const [comments, setComments] = useState([]); // 댓글 목록
   const [newComment, setNewComment] = useState("");
   const [editCommentId, setEditCommentId] = useState(null); // 수정할 댓글 ID
@@ -19,11 +18,10 @@ const Comment = () => {
   // 댓글 READ
   useEffect(() => {
     axios
-      .get(`${apiKey}/comments`)
+      .get(`${apiKey}/api/comments/performance/${mt20id}`)
       .then((response) => setComments(response.data))
       .catch((error) => console.error("Error fetching comments:", error));
-    // console.log(comments);
-  }, [comments]);
+  }, []);
 
   // 댓글 입력
   const onInputComment = (event) => {
@@ -36,7 +34,7 @@ const Comment = () => {
     if (newComment.trim() === "") return;
 
     axios
-      .post(`${apiKey}/comments`, { text: newComment })
+      .post(`${apiKey}/api/comments`, { text: newComment })
       .then((response) => {
         setComments([...comments, response.data]);
         setNewComment("");
@@ -47,7 +45,7 @@ const Comment = () => {
   // 댓글 DELETE
   const onDeleteComment = (id) => {
     axios
-      .delete(`${apiKey}/comments/${id}`)
+      .delete(`${apiKey}/api/comments/${id}`)
       .then(() => {
         setComments(comments.filter((item) => item.id !== id));
       })
@@ -69,7 +67,7 @@ const Comment = () => {
   // 댓글 UPDATE 완료
   const onEditComment = (id) => {
     axios
-      .put(`${apiKey}/comments/${id}`, { text: editComment })
+      .put(`${apiKey}/api/comments/${id}`, { text: editComment })
       .then((response) => {
         const updatedComments = comments.map((item) =>
           item.id === id ? response.data : item
@@ -100,7 +98,7 @@ const Comment = () => {
       </form>
       {/* 댓글 수정 및 삭제 */}
       <ul className="comment-list">
-        {/* {comments.map((item) => (
+        {comments.map((item) => (
           <li key={item.id} className="comment-item">
             {editCommentId === item.id ? (
               <Stack direction="horizontal" gap={3}>
@@ -128,23 +126,23 @@ const Comment = () => {
             ) : (
               <div>
                 {item.text}
-                <LikeComment /> 
+                <LikeComment /> {/* 댓글 좋아요 컴포넌트 */}
                 <button
                   onClick={() => loadEditForm(item.id, item.text)}
                   className="edit-comment-button"
                 >
-                  <FaEdit /> 
+                  <FaEdit /> {/* 수정 아이콘 */}
                 </button>
                 <button
                   onClick={() => onDeleteComment(item.id)}
                   className="comment-delete-button"
                 >
-                  <MdDeleteForever /> 
+                  <MdDeleteForever /> {/* 삭제 아이콘 */}
                 </button>
               </div>
             )}
           </li>
-        ))} */}
+        ))}
       </ul>
     </div>
   );
