@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import PrmcCard from "../components/PrmcCard";
 import useTheaterStore from "../zustand/useTheatersStore";
-import axiosInstance from "../api/axiosInstance";
+import PrmcCard from "../components/PrmcCard";
 import { useParams } from "react-router-dom";
+import axiosInstance from "../api/axiosInstance";
+
 const PrmcPage = () => {
-  const apiKey = import.meta.env.VITE_SERVER_URL;
+  const { theaterId } = useParams(); // 공연장 id
+  const [prmcList, setPrmcList] = useState([]); // 공연 목록 상태
 
   const setSelectedTheater = useTheaterStore(
     (state) => state.setSelectedTheater
   );
-  const { theaterId } = useParams();
 
-  const [prmcList, setPrmcList] = useState([]);
-
+  // 공연 데이터 READ
   useEffect(() => {
     if (theaterId) {
       const getPrmc = async () => {
@@ -22,27 +22,25 @@ const PrmcPage = () => {
           const response = await axiosInstance.get(url);
           return setPrmcList(response.data.performances);
         } catch (error) {
-          console.error("Error fetching performances", error);
+          console.error("공연 데이터 조회 실패: ", error);
         }
       };
       getPrmc();
-      console.log(prmcList);
     }
   }, [theaterId, setSelectedTheater]);
 
   return (
     <div>
+      <h1>공연</h1>
       <Container>
         <Row>
-          {prmcList.length > 0 &&
-            prmcList.map((item) => {
-              return (
-                <Col key={item.mt20id} lg={3}>
-                  {item.prfnm}
-                  <PrmcCard item={item} />
-                </Col>
-              );
-            })}
+          {prmcList.map((item) => {
+            return (
+              <Col key={item.mt20id} lg={3}>
+                <PrmcCard item={item} />
+              </Col>
+            );
+          })}
         </Row>
       </Container>
     </div>
