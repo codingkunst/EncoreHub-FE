@@ -9,6 +9,11 @@ yarn add tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 yarn add json-server -D
 yarn add react-bootstrap bootstrap
+yarn add react-multi-carousel --save
 
 <json-server 실행>
 yarn json-server db.json --port 4000
+
+<로그인 정보>
+id : codingkunst
+pw : 123456
