@@ -3,55 +3,60 @@ import SearchBar from "../components/searchbar/SearchBar";
 // import usePrmcStore from "../zustand/usePrmcStore";
 import "./HomePage.styled.css";
 import axiosInstance from "../api/axiosInstance";
+import SlideCard from "../components/carousel/SlideCard";
+import Slider from "../components/carousel/Slider";
+import { fetchBoxOffPrmcs } from "../api/prmc";
 
 const HomePage = () => {
   // const { getRankedList, getUpcomingList, fetchPrmcs } = usePrmcStore();
 
-  // useEffect(() => {
-  //   fetchPrmcs();
-  // }, [fetchPrmcs]);
-
   // const rankedList = getRankedList();
   // const upcomingList = getUpcomingList();
 
-  const [regionData, setRegionData] = useState(null);
-  const [theaterData, setTheaterData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    const fetchRegionData = async () => {
-      try {
-        const response = await axiosInstance.post("/api/theater/save-list");
-        setRegionData(response.data);
-        console.log("success fetch region data", response);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRegionData();
+  // const [regionData, setRegionData] = useState(null);
+  // const [theaterData, setTheaterData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+  // useEffect(() => {
+  //   const fetchRegionData = async () => {
+  //     try {
+  //       const response = await axiosInstance.post("/api/openapi/theaters/save-list");
+  //       setRegionData(response.data);
+  //       console.log("success fetch region data", response);
+  //     } catch (err) {
+  //       setError(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchRegionData();
 
-    const fetchTheaterData = async () => {
-      try {
-        const response = await axiosInstance.post("/api/theater/save-details");
-        setTheaterData(response.data);
-        console.log("success fetch theater data", response);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTheaterData();
-  }, []);
+  //   const fetchTheaterData = async () => {
+  //     try {
+  //       const response = await axiosInstance.post("/api/openapi/theaters/save-details");
+  //       setTheaterData(response.data);
+  //       console.log("success fetch theater data", response);
+  //     } catch (err) {
+  //       setError(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchTheaterData();
+  // }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
-      <section style={{ height: "calc(100vh - 75px)" }}>
+      <section
+        style={{
+          height: "calc(100vh - 75px)",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
         <div className="flex justify-center flex-col text-center h-full">
           <h1
             className="text-4xl"
@@ -80,7 +85,14 @@ const HomePage = () => {
             </ul>
           </div> */}
         </div>
+        <Slider />
       </section>
+      <div style={{ margin: "8rem 5rem 5rem 3rem" }}>
+        <h1 style={{ fontSize: "2rem", marginLeft: "2rem" }}>
+          지금 인기있는 공연
+        </h1>
+        <SlideCard />
+      </div>
       {/* <section
         style={{
           position: "relative",

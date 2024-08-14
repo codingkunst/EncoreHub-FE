@@ -93,6 +93,11 @@ export const refreshAccessToken = async () => {
 //   return response.data;
 // };
 
+//Social Login
+export const kakaoLogin = async () => {
+  
+}
+
 // //Social Login
 // export const kakaoLogin = async (socialData) => {
 //   const response = await axiosInstance.post("/member/login/kakao", socialData);

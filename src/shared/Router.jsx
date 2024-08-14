@@ -5,6 +5,7 @@ import SignupPage from "../pages/SignupPage";
 import HomePage from "../pages/HomePage";
 import PrmcPage from "../pages/PrmcPage";
 import MyPage from "../pages/MyPage";
+import RedirectPage from "../pages/Redirectpage";
 
 const Router = () => {
   return (
@@ -12,6 +13,8 @@ const Router = () => {
       <Header />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/oauth/kakao/callback" element={<RedirectPage />} />
+
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/prmcpage/:theaterId" element={<PrmcPage />} />

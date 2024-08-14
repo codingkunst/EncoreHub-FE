@@ -28,7 +28,7 @@ const Header = () => {
     setShake(false);
   };
 
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   const pathData = !shake
     ? "M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"
@@ -42,23 +42,29 @@ const Header = () => {
         </Link>
         {!isHomePage && <SearchBar />}
         <HeaderContains>
-          <StyledTicketAlert
-            className="transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
-            onClick={handleAlertClick}
-            // styled={isAuthenticated ? { display: "flex" } : { display: "none" }}
-          >
-            <StyledBellIcon
-              xmlns="http://www.w3.org/2000/svg"
-              fill={!shake ? "none" : "rgb(138,14,196)"}
-              viewBox="0 0 24 24"
-              strokeWidth={1.7}
-              stroke="rgb(138,14,196)"
-              className="size-7"
-              $shake={shake}
+          {isAuthenticated && (
+            <StyledTicketAlert
+              className="transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
+              onClick={handleAlertClick}
+              // styled={isAuthenticated ? { display: "flex" } : { display: "none" }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d={pathData} />
-            </StyledBellIcon>
-          </StyledTicketAlert>
+              <StyledBellIcon
+                xmlns="http://www.w3.org/2000/svg"
+                fill={!shake ? "none" : "rgb(138,14,196)"}
+                viewBox="0 0 24 24"
+                strokeWidth={1.7}
+                stroke="rgb(138,14,196)"
+                className="size-7"
+                $shake={shake}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d={pathData}
+                />
+              </StyledBellIcon>
+            </StyledTicketAlert>
+          )}
           <Nav>
             {!isAuthenticated ? (
               <div>
