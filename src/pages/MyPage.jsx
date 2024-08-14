@@ -3,7 +3,7 @@ import axios from "axios";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import useAuthStore from "../zustand/useAuthStore";
-import MyPfmcCard from "../components/mypfmc/MyPfmcCard";
+// import MyPfmcCard from "../components/mypfmc/MyPfmcCard";
 import Map from "../components/Map";
 
 // 슬라이드 설정
@@ -58,15 +58,6 @@ const MyPage = () => {
             <MyPfmcCard key={item.mt20id} item={item} />
             );
         })}
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
-        <MyPfmcCard />
       </Carousel>
 
       {/* 카카오맵 컴포넌트 */}
