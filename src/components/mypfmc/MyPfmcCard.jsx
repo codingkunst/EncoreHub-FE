@@ -6,12 +6,13 @@ import Card from "react-bootstrap/Card";
 const MyPfmcCard = ({ item }) => {
   return (
     <div className="m-2.5">
-    <Card style={{ width: "18rem" }}>
-      <Card.Img className="w-auto h-auto" variant="top" src={item.poster} alt="Loading..." />
-      <Card.Body className="d-grid gap-2">
-        <Card.Title>공연명 : {item.prfnm}</Card.Title>
-      </Card.Body>
-    </Card></div>
+      <Card style={{ width: "18rem" }}>
+        <Card.Img className="w-auto h-auto" variant="top" src={item.poster} alt="Loading..."/>
+        <Card.Body className="d-grid gap-2">
+          <Card.Title>공연명 : {item.prfnm}</Card.Title>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 
