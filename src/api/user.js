@@ -11,7 +11,7 @@ export const toggleFavoriteTheater = async (
     const response = await axiosInstance.post("/api/favorite-theaters/toggle", {
       theaterId,
     });
-    console.log("API response data:", response.data);
+    // console.log("API response data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to add favorite theater:", error);
@@ -25,7 +25,7 @@ export const getFavoriteTheaters = async (accessToken, refreshToken) => {
     const response = await axiosAuthInstance.get(
       "/api/favorite-theaters/mypage"
     );
-    console.log("fetch fav theaters:", response.data);
+    // console.log("fetch fav theaters:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching favorite theaters:", error);
@@ -37,7 +37,7 @@ export const getFavoritePfmcs = async (accessToken, refreshToken) => {
   try {
     const axiosAuthInstance = axiosWithAuth(accessToken, refreshToken);
     const response = await axiosAuthInstance.get("/api/favorite-pfmc/mypage");
-    console.log("fetch fav pfmcs:", response.data);
+    // console.log("fetch fav pfmcs:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching favorite pfmcs:", error);
@@ -55,7 +55,7 @@ export const toggleFavoritePfmc = async (
     const response = await axiosInstance.post("/api/favorite-pfmc/toggle", {
       performanceId,
     });
-    console.log("API response data:", response.data);
+    // console.log("API response data:", response.data);
     return response.data;
   } catch (error) {
     console.error("Failed to add favorite pfmc:", error);

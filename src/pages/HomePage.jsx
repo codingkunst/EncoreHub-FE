@@ -8,20 +8,17 @@ import Slider from "../components/carousel/Slider";
 import { fetchBoxOffPrmcs } from "../api/prmc";
 import useAuthStore from "../zustand/useAuthStore";
 import { login } from "../api/auth";
+import { useFetchFavoritePfmcs } from "../hooks/usePrmcs";
+import usePrmcStore from "../zustand/usePrmcStore";
 
 const HomePage = () => {
-  const { AccessToken, token, isAuthenticated, login } = useAuthStore();
-  useEffect(() => {
-    if (AccessToken) {
-      login(); // 로그인 시도
-    }
-  }, [AccessToken, login]);
+  const { isAuthenticated, accessToken, refreshToken } = useAuthStore();
 
   useEffect(() => {
-    console.log("AccessToken:", AccessToken);
-    console.log("refreshToken:", token);
-    console.log("isAuthenticated:", isAuthenticated);
-  }, [AccessToken, isAuthenticated]);
+    // console.log("AccessToken:", accessToken);
+    // console.log("refreshToken:", refreshToken);
+    // console.log("isAuthenticated:", isAuthenticated);
+  }, [accessToken, isAuthenticated]);
 
   return (
     <div>

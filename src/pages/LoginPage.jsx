@@ -17,8 +17,8 @@ const LoginPage = () => {
   const handleLoginSubmit = async (credentials) => {
     try {
       await loginUser(credentials);
-      console.log(credentials);
-      console.log(credentials.email);
+      // console.log(credentials);
+      // console.log(credentials.email);
     } catch (err) {
       console.error("Login failed:", err.message);
     }
@@ -39,7 +39,7 @@ const LoginPage = () => {
   const loginHandler = () => {
     window.location.href = link;
     // window.open(link);
-    console.log(link);
+    // console.log(link);
   };
 
   const getCookie = (name) => {
@@ -51,7 +51,7 @@ const LoginPage = () => {
 
   const code = new URL(window.location.href).searchParams.get("code");
   const token = getCookie("AccessToken");
-  console.log(code);
+  // console.log(code);
   const headers = {
     "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
   };
@@ -69,7 +69,7 @@ const LoginPage = () => {
               },
             }
           );
-          console.log(response.data); // 응답 데이터 처리
+          // console.log(response.data); // 응답 데이터 처리
         } catch (error) {
           console.error("Error during Kakao callback:", error.message);
         }

@@ -14,7 +14,7 @@ export const login = async (credentials) => {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
     const accessToken = response.headers["accesstoken"];
     const refreshToken = response.headers["refreshtoken"];
     return { accessToken, refreshToken };
@@ -94,9 +94,7 @@ export const refreshAccessToken = async () => {
 // };
 
 //Social Login
-export const kakaoLogin = async () => {
-  
-}
+export const kakaoLogin = async () => {};
 
 // //Social Login
 // export const kakaoLogin = async (socialData) => {

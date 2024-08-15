@@ -29,7 +29,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const { isAuthenticated, accessToken, refreshToken } = useAuthStore(
     (state) => ({
       isAuthenticated: state.isAuthenticated,
-      refreshToken: state.token,
+      refreshToken: state.refreshToken,
       accessToken: state.accessToken,
     })
   );
@@ -93,6 +93,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const navigate = useNavigate();
   const setTheaterClickHandler = (theater) => {
     setSelectedTheater(theater);
+    onClose();
     navigate(`/prmcpage/${theater}`);
   };
 
@@ -140,7 +141,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
         refreshToken
       );
       setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
-      console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
+      // console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
     } catch (error) {
       console.error(
         "Error toggling favorite theater:",
@@ -149,7 +150,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     }
   };
   useEffect(() => {
-    console.log("Favorite theaters updated:", favoriteTheaters);
+    // console.log("Favorite theaters updated:", favoriteTheaters);
   }, []);
 
   const isFavorite = (theaterId) => {
@@ -158,7 +159,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
 
   //loading / error
 
-  if (isRegionLoading || isTheaterLoading) return console.log("loading");
+  if (isRegionLoading || isTheaterLoading) return;
   if (isRegionError || isTheaterError) return console.log("error");
 
   return (

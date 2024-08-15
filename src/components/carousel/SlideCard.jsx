@@ -30,7 +30,7 @@ const SlideCard = () => {
 
   useEffect(() => {
     fetchBoxOffPrmcs();
-    console.log(boxOffPrmcs);
+    // console.log(boxOffPrmcs);
   }, [fetchBoxOffPrmcs()]);
 
   if (isLoading) return <p>Loading...</p>;
