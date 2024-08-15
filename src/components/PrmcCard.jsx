@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import ModalDetail from "./ModalDetail";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { toggleFavoritePfmc } from "../api/user";
 
-const PrmcCard = ({ item, toggleFavoritePfmcHandler, fill }) => {
+const PrmcCard = ({ item }) => {
   // 모달 관련 코드
   const [show, setShow] = useState(false);
 

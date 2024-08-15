@@ -24,18 +24,9 @@ const ModalDetail = ({ show, handleClose, item }) => {
   useEffect(() => {
     const getComment = async () => {
       try {
-        const { data } = await axios.get(
-          `${apiKey}/api/comments/performance/${item.mt20id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              AccessToken: accessToken ? accessToken : undefined,
-              RefreshToken: refreshToken ? refreshToken : undefined,
-            },
-          }
-        );
-        console.log("data 확인: ", data);
+        const { data } = await axios.get(`${apiKey}/api/comments/performance/${item.mt20id}`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
         setComments(data.data);
+        console.log("댓글 조회 성공");
       } catch (error) {
         console.error("댓글 조회 실패", error);
       }
@@ -119,7 +110,8 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <p className="mt-2">공연 시간 : {item.dtguidance}</p>
         <p className="mt-2">관람 연령 : {item.prfage}</p>
         <p className="mt-2">장르 : {item.genrenm}</p>
-        <p className="mt-2 mb-2.5">티켓 가격 : {item.pcseguidance}</p>
+        <p className="mt-2">티켓 가격 : {item.pcseguidance}</p>
+        <p className="mt-2 mb-2.5"><a href={item.relateInfos[0].relateurl} target="_blank">🎪 예매하기 🎪</a></p>
         {/* 좋아요, 즐겨찾기 컴포넌트 */}
         <LikeAndFavorite mt20id={item.mt20id} />
         <br />

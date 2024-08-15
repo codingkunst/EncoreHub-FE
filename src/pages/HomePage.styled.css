@@ -12,13 +12,22 @@
   font-weight: 400;
   font-style: normal;
 }
+
+/* 이서윤체 폰트 */
+@font-face {
+  font-family: "LeeSeoyun";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
-  font-family: "Pretendard-Regular";
+  font-family: "LeeSeoyun";
   /* color: #fff; */
 }
 h1,
 span {
-  font-family: "WavvePADO-Regular";
+  font-family: "LeeSeoyun";
   /* color: #fff; */
 }
 .slider {
