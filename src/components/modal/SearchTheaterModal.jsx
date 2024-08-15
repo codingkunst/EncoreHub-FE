@@ -113,7 +113,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
   }, [favoriteTheaters]);
 
   const isFavorite = (theaterId) => {
-    return favoriteTheaters.some((theater) => theater.theaterId === theaterId);
+    return favoriteTheaters.some((theater) => theater.mt10id === theaterId);
   };
 
   return (

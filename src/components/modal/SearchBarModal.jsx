@@ -26,13 +26,7 @@ import {
 
 const SearchBarModal = ({ isVisible, onClose }) => {
   //auth
-  const { isAuthenticated, accessToken, refreshToken } = useAuthStore(
-    (state) => ({
-      isAuthenticated: state.isAuthenticated,
-      refreshToken: state.refreshToken,
-      accessToken: state.accessToken,
-    })
-  );
+  const { isAuthenticated, accessToken, refreshToken } = useAuthStore();
 
   useEffect(() => {
     //   console.log("isAuthenticated:", isAuthenticated);
@@ -142,6 +136,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
       );
       setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
       // console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
+      console.log(theaterId);
     } catch (error) {
       console.error(
         "Error toggling favorite theater:",
@@ -154,7 +149,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   }, []);
 
   const isFavorite = (theaterId) => {
-    return favoriteTheaters.some((theater) => theater.theaterId === theaterId);
+    return favoriteTheaters.some((theater) => theater.mt10id === theaterId);
   };
 
   //loading / error
@@ -219,26 +214,23 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                         key={theater.id}
                         className="flex justify-around items-center"
                         onClick={(event) =>
-                          setTheaterClickHandler(theater.theaterId, event)
+                          setTheaterClickHandler(theater.mt10id, event)
                         }
                         style={{
                           justifyContent: "space-around",
                           cursor: "pointer",
                         }}
                       >
-                        <p>{theater.theaterName}</p>
+                        <p>{theater.fcltynm}</p>
                         <button
                           onClick={(event) =>
-                            handleToggleFavoriteTheater(
-                              theater.theaterId,
-                              event
-                            )
+                            handleToggleFavoriteTheater(theater.mt10id, event)
                           }
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill={
-                              isFavorite(theater.theaterId)
+                              isFavorite(theater.mt10id)
                                 ? "rgb(138, 14, 196)"
                                 : "none"
                             }
