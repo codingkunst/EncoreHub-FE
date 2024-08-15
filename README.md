@@ -6,6 +6,7 @@
 | <img style="width: 200px;" src="https://avatars.githubusercontent.com/u/113411111?v=4" /> | <img style="width: 200px;" src="https://avatars.githubusercontent.com/u/121416591?v=4" /> |
 | 김노을 | 류영찬 |
 | [@noeulgim](https://github.com/noeulgim) | [@codingkunst](https://github.com/codingkunst) |
+## 🌐 배포 : [Encore Hub](https://encorehub.vercel.app, "클릭하면 ENCORE HUB 홈페이지로 이동합니다")
 ## 🛠️ Skill
 ![Skills](https://skillicons.dev/icons?i=git,html,css,js,react,vite,yarn,tailwind,bootstrap)
 ## 💥 트러블슈팅
