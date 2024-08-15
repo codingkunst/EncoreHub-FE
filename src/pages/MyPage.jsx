@@ -56,13 +56,7 @@ const MyPage = () => {
         centerMode={true}
         responsive={responsive}
         autoPlay={true}
-      >
-        {/* {likePrmcList.map((item) => {
-          return (
-            <MyPfmcCard key={item.mt20id} item={item} />
-            );
-        })} */}
-      </Carousel>
+      ></Carousel>
 
       {/* 카카오맵 컴포넌트 */}
       {/* <Map /> */}

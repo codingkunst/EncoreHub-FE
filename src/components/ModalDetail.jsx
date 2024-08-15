@@ -111,7 +111,6 @@ const ModalDetail = ({ show, handleClose, item }) => {
             style={{ width: "100%", height: "auto" }}
           />
         </div>
-
         <p className="mt-2.5">공연명 : {item.prfnm}</p>
         <p className="mt-2">공연 시작일 : {item.prfpdfrom}</p>
         <p className="mt-2">공연 종료일 : {item.prfpdto}</p>
