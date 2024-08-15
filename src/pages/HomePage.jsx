@@ -6,47 +6,21 @@ import axiosInstance from "../api/axiosInstance";
 import SlideCard from "../components/carousel/SlideCard";
 import Slider from "../components/carousel/Slider";
 import { fetchBoxOffPrmcs } from "../api/prmc";
+import useAuthStore from "../zustand/useAuthStore";
+import { login } from "../api/auth";
 
 const HomePage = () => {
-  // const { getRankedList, getUpcomingList, fetchPrmcs } = usePrmcStore();
+  const { AccessToken, isAuthenticated, login } = useAuthStore();
+  useEffect(() => {
+    if (AccessToken) {
+      login(); // 로그인 시도
+    }
+  }, [AccessToken, login]);
 
-  // const rankedList = getRankedList();
-  // const upcomingList = getUpcomingList();
-
-  // const [regionData, setRegionData] = useState(null);
-  // const [theaterData, setTheaterData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  // useEffect(() => {
-  //   const fetchRegionData = async () => {
-  //     try {
-  //       const response = await axiosInstance.post("/api/openapi/theaters/save-list");
-  //       setRegionData(response.data);
-  //       console.log("success fetch region data", response);
-  //     } catch (err) {
-  //       setError(err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchRegionData();
-
-  //   const fetchTheaterData = async () => {
-  //     try {
-  //       const response = await axiosInstance.post("/api/openapi/theaters/save-details");
-  //       setTheaterData(response.data);
-  //       console.log("success fetch theater data", response);
-  //     } catch (err) {
-  //       setError(err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchTheaterData();
-  // }, []);
-
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error.message}</p>;
+  useEffect(() => {
+    console.log("AccessToken:", AccessToken);
+    console.log("isAuthenticated:", isAuthenticated);
+  }, [AccessToken, isAuthenticated]);
 
   return (
     <div>
@@ -93,80 +67,6 @@ const HomePage = () => {
         </h1>
         <SlideCard />
       </div>
-      {/* <section
-        style={{
-          position: "relative",
-          height: "70vh",
-          width: "100vw",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            margin: "2rem 5rem",
-            overflow: "hidden",
-            boxSizing: "border-box",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div className="secondSt-slider">
-            <h1>공연 랭킹</h1>
-            <div>
-              <ul className="secondSt-slides" style={{ display: "flex" }}>
-                {rankedList.map((item) => (
-                  <li className="secondSt-slide relative" key={item.id}>
-                    <div style={{ position: "absolute" }}>{item.rnum}</div>
-                    <div style={{ position: "relative" }}>
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        style={{ borderRadius: "4px" }}
-                      ></img>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section
-        style={{
-          position: "relative",
-          height: "70vh",
-          width: "100vw",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            margin: "2rem 5rem",
-            overflow: "hidden",
-            boxSizing: "border-box",
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <div className="secondSt-slider">
-            <h1>티켓팅 일정 순서</h1>
-            <div>
-              <ul className="secondSt-slides" style={{ display: "flex" }}>
-                {upcomingList.map((item) => (
-                  <li className="secondSt-slide" key={item.id}>
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      style={{ borderRadius: "4px" }}
-                    />
-                    <p>티켓팅 날짜: {item.ticketDate}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };
