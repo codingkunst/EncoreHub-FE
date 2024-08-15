@@ -38,6 +38,9 @@ const SearchBarModal = ({ isVisible, onClose }) => {
     //   console.log("isAuthenticated:", isAuthenticated);
     //   console.log("accessToken:", accessToken);
     //   console.log("refreshToken:", refreshToken);
+    if (isAuthenticated) {
+      getFavoriteTheaters();
+    }
   }, [isAuthenticated, accessToken, refreshToken]);
 
   //region
@@ -94,22 +97,26 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   };
 
   //favorite theater
-  const {
-    data: favoriteTheaters,
-    isLoading: isFavTheaterLoading,
-    isError: isFavTheaterError,
-    error: favTheaterError,
-  } = useFetchFavoriteTheaters();
-  const { favoriteTheaters: storeFavoriteTheaters, setFavoriteTheaters } =
-    useTheaterStore();
+
+  const { favoriteTheaters, setFavoriteTheaters } = useTheaterStore();
 
   useEffect(() => {
-    if (isAuthenticated && favoriteTheaters) {
-      setFavoriteTheaters(favoriteTheaters);
+    if (isAuthenticated) {
+      const fetchFavorites = async () => {
+        try {
+          const favoriteTheaters = await getFavoriteTheaters(
+            accessToken,
+            refreshToken
+          );
+          setFavoriteTheaters(favoriteTheaters);
+        } catch (error) {
+          console.error("Error fetching favorite theaters:", error);
+        }
+      };
+
+      fetchFavorites();
     }
-    console.log("storeFavoriteTheaters:", storeFavoriteTheaters);
-    console.log("favoriteTheaters:", favoriteTheaters);
-  }, [favoriteTheaters]);
+  }, [isAuthenticated, accessToken, refreshToken, setFavoriteTheaters]);
 
   //favorite theater - toggle action
   const [activeElement, setActiveElement] = useState("");
@@ -122,42 +129,39 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const handleToggleFavoriteTheater = async (theaterId, event) => {
     event.stopPropagation();
 
-    if (!isAuthenticated) {
+    if (isAuthenticated === false) {
       console.log("로그인 후 즐겨찾기 추가");
       return;
-    }
-    try {
-      await toggleFavorite(theaterId);
-      await new Promise((resolve) => setTimeout(resolve, 100));
-      const updatedFavoriteTheaters = await getFavoriteTheaters(
-        accessToken,
-        refreshToken
-      );
-      setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
-      console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
-    } catch (error) {
-      console.error(
-        "Error toggling favorite theater:",
-        error.message || "error"
-      );
+    } else {
+      try {
+        await toggleFavorite(theaterId);
+        await new Promise((resolve) => setTimeout(resolve, 100));
+        const updatedFavoriteTheaters = await getFavoriteTheaters(
+          accessToken,
+          refreshToken
+        );
+        setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
+        console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
+      } catch (error) {
+        console.error(
+          "Error toggling favorite theater:",
+          error.message || "error"
+        );
+      }
     }
   };
   useEffect(() => {
-    console.log("Favorite theaters updated:", storeFavoriteTheaters);
+    console.log("Favorite theaters updated:", favoriteTheaters);
   }, [favoriteTheaters]);
 
   const isFavorite = (theaterId) => {
-    return storeFavoriteTheaters.some(
-      (theater) => theater.theaterId === theaterId
-    );
+    return favoriteTheaters.some((theater) => theater.theaterId === theaterId);
   };
 
   //loading / error
 
-  if (isRegionLoading || isTheaterLoading || isFavTheaterLoading)
-    return console.log("loading");
-  if (isRegionError || isTheaterError || isFavTheaterError)
-    return console.log("error");
+  if (isRegionLoading || isTheaterLoading) return console.log("loading");
+  if (isRegionError || isTheaterError) return console.log("error");
 
   return (
     <Modal isVisible={isVisible} onClose={onClose}>
@@ -209,9 +213,9 @@ const SearchBarModal = ({ isVisible, onClose }) => {
               >
                 <List>
                   {isAuthenticated &&
-                  storeFavoriteTheaters &&
-                  storeFavoriteTheaters.length > 0 ? (
-                    storeFavoriteTheaters.map((theater) => (
+                  favoriteTheaters &&
+                  favoriteTheaters.length > 0 ? (
+                    favoriteTheaters.map((theater) => (
                       <VenueItem
                         key={theater.id}
                         className="flex justify-around items-center"
@@ -323,7 +327,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
         </div>
         {selectedRegion ? (
           theaters ? (
-            <VenueList>
+            <VenueList style={{ marginTop: "3rem" }}>
               {theaters.map((theater) => (
                 <VenueItem
                   key={theater.mt10id}
