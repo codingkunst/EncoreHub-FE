@@ -11,7 +11,6 @@ const LikeAndFavorite = ({ mt20id }) => {
   const accessToken = useAuthStore((state) => state.accessToken); // 유저 토큰
 
   const [isLike, setIsLike] = useState(false); // 좋아요 상태
-  const [isLikeCount, setIsLikeCount] = useState(0); // 좋아요 카운트
   const [isFavorite, setIsFavorite] = useState(false); // 즐겨찾기 상태
 
   // 좋아요 상태 조회
@@ -50,7 +49,6 @@ const LikeAndFavorite = ({ mt20id }) => {
         }
       );
       setIsLike(response.data.data.liked);
-      setIsLikeCount(response.data.data.likeCount);
       console.log("좋아요 상태 변경 성공");
     } catch (error) {
       console.error("좋아요 상태 변경 실패 : ", error);
@@ -108,7 +106,7 @@ const LikeAndFavorite = ({ mt20id }) => {
         onClick={onLikeHandler}
         disabled={!isAuthenticated}
       >
-        {isLike ? "❤️" : "🤍"} {isLikeCount}
+        {isLike ? "❤️" : "🤍"} 좋아요
       </button>
       <button
         className={`favorite-button ${isFavorite ? "active" : ""}`}

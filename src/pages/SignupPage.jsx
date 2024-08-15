@@ -17,7 +17,7 @@ const SignUpPage = () => {
     event.preventDefault();
     try {
       await registerUser(data);
-      console.log(data);
+      // console.log(data);
     } catch (err) {
       console.error("Registration failed:", err.message);
     }
