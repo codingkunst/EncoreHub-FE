@@ -2,7 +2,7 @@ import { create } from "zustand";
 import Cookies from "js-cookie";
 
 const useAuthStore = create((set) => ({
-  token: Cookies.get("refreshToken") || null,
+  refreshToken: Cookies.get("refreshToken") || null,
   accessToken: localStorage.getItem("accessToken") || null,
   isAuthenticated: Cookies.get("refreshToken") ? true : false,
   login: (accessToken, refreshToken) => {
@@ -12,29 +12,29 @@ const useAuthStore = create((set) => ({
     localStorage.setItem("accessToken", accessToken);
 
     set({
-      token: refreshToken,
+      refreshToken,
       accessToken,
       isAuthenticated: true,
     });
 
-    console.log("Access Token saved:", localStorage.getItem("accessToken"));
-    console.log("Refresh Token saved in Cookies:", Cookies.get("refreshToken"));
+    // console.log("Access Token saved:", localStorage.getItem("accessToken"));
+    // console.log("Refresh Token saved in Cookies:", Cookies.get("refreshToken"));
   },
   logout: () => {
     Cookies.remove("refreshToken");
     localStorage.removeItem("accessToken");
 
     set({
-      token: null,
+      refreshToken: null,
       accessToken: null,
       isAuthenticated: false,
     });
 
-    console.log("Access Token removed:", localStorage.getItem("accessToken"));
-    console.log(
-      "Refresh Token removed from Cookies:",
-      Cookies.get("refreshToken")
-    );
+    // console.log("Access Token removed:", localStorage.getItem("accessToken"));
+    // console.log(
+    //   "Refresh Token removed from Cookies:",
+    //   Cookies.get("refreshToken")
+    // );
     window.location.reload();
   },
 }));

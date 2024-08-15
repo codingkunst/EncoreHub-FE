@@ -33,11 +33,11 @@ export const useLogin = () => {
       queryClient.invalidateQueries(["user"]);
       navigate("/");
       login(accessToken, refreshToken);
-      console.log(
-        "accessToken: " + accessToken,
-        "refreshToken: " + refreshToken
-      );
-      console.log("Login successful");
+      // console.log(
+      //   "accessToken: " + accessToken,
+      //   "refreshToken: " + refreshToken
+      // );
+      // console.log("Login successful");
     },
     onError: (error) => {
       console.error("Login failed:", error.message);

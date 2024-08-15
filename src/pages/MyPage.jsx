@@ -73,7 +73,12 @@ const MyPage = () => {
     <div>
       <h1 className="m-4">💜 내가 좋아하는 공연 💜</h1>
       {likePrmcList.length > 0 ? (
-        <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
+        <Carousel
+          infinite={true}
+          centerMode={true}
+          responsive={responsive}
+          autoPlay={true}
+        >
           {likePrmcList.map((item) => {
             return <MyPfmcCard key={item.mt20id} item={item} />;
           })}
@@ -84,7 +89,12 @@ const MyPage = () => {
 
       <h1 className="m-4">🧡 내가 즐겨찾는 공연 🧡</h1>
       {favoritePfmc.length > 0 ? (
-        <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
+        <Carousel
+          infinite={true}
+          centerMode={true}
+          responsive={responsive}
+          autoPlay={true}
+        >
           {favoritePfmc.map((item) => {
             return <MyPfmcCard key={item.mt20id} item={item} />;
           })}

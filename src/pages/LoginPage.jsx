@@ -17,8 +17,8 @@ const LoginPage = () => {
   const handleLoginSubmit = async (credentials) => {
     try {
       await loginUser(credentials);
-      console.log(credentials);
-      console.log(credentials.email);
+      // console.log(credentials);
+      // console.log(credentials.email);
     } catch (err) {
       console.error("Login failed:", err.message);
     }
@@ -39,8 +39,45 @@ const LoginPage = () => {
   const loginHandler = () => {
     window.location.href = link;
     // window.open(link);
-    console.log(link);
+    // console.log(link);
   };
+
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return null;
+  };
+
+  const code = new URL(window.location.href).searchParams.get("code");
+  const token = getCookie("AccessToken");
+  // console.log(code);
+  const headers = {
+    "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+  };
+
+  useEffect(() => {
+    if (code) {
+      const login = async () => {
+        try {
+          const response = await axiosInstance.get(
+            `/oauth/kakao/callback?code=${code}`,
+            {
+              headers: {
+                AccessToken: token,
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }
+          );
+          // console.log(response.data); // 응답 데이터 처리
+        } catch (error) {
+          console.error("Error during Kakao callback:", error.message);
+        }
+      };
+
+      login();
+    }
+  }, [code, token]);
 
   return (
     <LoginForms>

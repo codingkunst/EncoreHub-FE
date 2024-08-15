@@ -29,7 +29,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const { isAuthenticated, accessToken, refreshToken } = useAuthStore(
     (state) => ({
       isAuthenticated: state.isAuthenticated,
-      refreshToken: state.token,
+      refreshToken: state.refreshToken,
       accessToken: state.accessToken,
     })
   );
@@ -93,6 +93,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const navigate = useNavigate();
   const setTheaterClickHandler = (theater) => {
     setSelectedTheater(theater);
+    onClose();
     navigate(`/prmcpage/${theater}`);
   };
 
@@ -101,7 +102,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const { favoriteTheaters, setFavoriteTheaters } = useTheaterStore();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated === true) {
       const fetchFavorites = async () => {
         try {
           const favoriteTheaters = await getFavoriteTheaters(
@@ -128,31 +129,29 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const { mutate: toggleFavorite } = useToggleFavoriteTheater();
   const handleToggleFavoriteTheater = async (theaterId, event) => {
     event.stopPropagation();
-
     if (isAuthenticated === false) {
       console.log("로그인 후 즐겨찾기 추가");
       return;
-    } else {
-      try {
-        await toggleFavorite(theaterId);
-        await new Promise((resolve) => setTimeout(resolve, 100));
-        const updatedFavoriteTheaters = await getFavoriteTheaters(
-          accessToken,
-          refreshToken
-        );
-        setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
-        console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
-      } catch (error) {
-        console.error(
-          "Error toggling favorite theater:",
-          error.message || "error"
-        );
-      }
+    }
+    try {
+      await toggleFavorite(theaterId);
+      await new Promise((resolve) => setTimeout(resolve, 100));
+      const updatedFavoriteTheaters = await getFavoriteTheaters(
+        accessToken,
+        refreshToken
+      );
+      setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
+      // console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
+    } catch (error) {
+      console.error(
+        "Error toggling favorite theater:",
+        error.message || "error"
+      );
     }
   };
   useEffect(() => {
-    console.log("Favorite theaters updated:", favoriteTheaters);
-  }, [favoriteTheaters]);
+    // console.log("Favorite theaters updated:", favoriteTheaters);
+  }, []);
 
   const isFavorite = (theaterId) => {
     return favoriteTheaters.some((theater) => theater.theaterId === theaterId);
@@ -160,7 +159,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
 
   //loading / error
 
-  if (isRegionLoading || isTheaterLoading) return console.log("loading");
+  if (isRegionLoading || isTheaterLoading) return;
   if (isRegionError || isTheaterError) return console.log("error");
 
   return (

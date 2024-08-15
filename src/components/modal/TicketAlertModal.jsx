@@ -9,22 +9,46 @@ import {
 // import usePrmcStore from "../../zustand/usePrmcStore";
 // import { useFetchLikePrmcs } from "../../hooks/useLikePrmcs";
 import { Link } from "react-router-dom";
+import { useFetchFavoritePfmcs } from "../../hooks/usePrmcs";
+import useAuthStore from "../../zustand/useAuthStore";
+import usePrmcStore from "../../zustand/usePrmcStore";
+import { getFavoritePfmcs } from "../../api/user";
 // import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function TicketAlertModal({ open, onClose }) {
-  // const { data: likePrmcs, isLoading, isError, error } = useFetchLikePrmcs();
-  // const { likePrmc, setLikePrmc } = usePrmcStore((state) => ({
-  //   likePrmc: state.likePrmc,
-  //   setLikePrmc: state.setLikePrmc,
-  // }));
-
+  const { isAuthenticated, accessToken, refreshToken } = useAuthStore();
+  useEffect(() => {
+    if (isAuthenticated) {
+      getFavoritePfmcs(accessToken, refreshToken);
+    }
+  }, [isAuthenticated]);
   // useEffect(() => {
-  //   likePrmc;
-  //   likePrmcs;
-  //   setLikePrmc;
-  //   // Log likePrmc after it has been updated
-  //   console.log(likePrmcs, likePrmc);
-  // });
+  //   console.log("AccessToken:", accessToken);
+  //   console.log("refreshToken:", refreshToken);
+  //   console.log("isAuthenticated:", isAuthenticated);
+  // }, [accessToken, isAuthenticated]);
+
+  const { favoritePfmcs, setFavoritePfmcs } = usePrmcStore();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const fetchFavorites = async () => {
+        try {
+          const favoritePfmcs = await getFavoritePfmcs(
+            accessToken,
+            refreshToken
+          );
+          const filteredPfmcs = favoritePfmcs.filter((prmc) => prmc.favorited);
+          setFavoritePfmcs(filteredPfmcs);
+          // console.log("favoritePfmcs:", favoritePfmcs);
+        } catch (error) {
+          console.error("Error fetching favorite theaters:", error);
+        }
+      };
+      // console.log("favoritePfmcsstore:", favoritePfmcs);
+      fetchFavorites();
+    }
+  }, [isAuthenticated, accessToken, refreshToken, setFavoritePfmcs]);
 
   const calculateDday = (ticketDate) => {
     const today = new Date();
@@ -40,8 +64,8 @@ export default function TicketAlertModal({ open, onClose }) {
     return daysDiff;
   };
 
-  // const sortedPrmcs = Array.isArray(likePrmcs)
-  //   ? likePrmcs
+  // const sortedPrmcs = Array.isArray(favoritePrmcsStore)
+  //   ? favoritePrmcsStore
   //       .slice()
   //       .sort((a, b) => new Date(a.ticketDate) - new Date(b.ticketDate))
   //   : [];
@@ -120,29 +144,30 @@ export default function TicketAlertModal({ open, onClose }) {
                     role="list"
                     className="divide-y divide-gray-100 absolute inset-0 overflow-y-auto"
                   >
-                    {/* {sortedPrmcs.map((prmc) => (
-                      <li
-                        key={prmc.id}
-                        className="flex justify-between gap-x-6 py-5 px-3 mx-4 items-center transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
-                        onClick={() => handleClick(prmc.link)}
-                      >
-                        <div className="flex min-w-0 gap-x-4 items-center	">
-                          <img
-                            alt={prmc.title}
-                            src={prmc.image}
-                            className="h-16 w-16 flex-none rounded-full bg-gray-50"
-                          />
-                          <div className="min-w-0 flex-auto items-center	">
-                            <p className="text-sm font-semibold leading-6 text-gray-900">
-                              {prmc.title}
-                            </p>
-                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">
+                    {favoritePfmcs &&
+                      favoritePfmcs.map((prmc) => (
+                        <li
+                          key={prmc.id}
+                          className="flex justify-between gap-x-6 px-3 mx-4 items-center transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
+                          // onClick={() => handleClick(prmc.link)}
+                        >
+                          <div className="flex min-w-0 gap-x-4 items-center	">
+                            <img
+                              alt={prmc.performanceName}
+                              src={prmc.performancePoster}
+                              className="h-16 w-16 flex-none rounded-full bg-gray-50"
+                            />
+                            <div className="min-w-0 flex-auto items-center	">
+                              <p className="text-sm font-semibold leading-6 text-gray-900">
+                                {prmc.performanceName}
+                              </p>
+                              {/* <p className="mt-1 truncate text-xs leading-5 text-gray-500">
                               {prmc.theater}
-                            </p>
+                            </p> */}
+                            </div>
                           </div>
-                        </div>
-                        <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                          <p
+                          <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
+                            {/* <p
                             className="text-m leading-6"
                             style={
                               calculateDday(prmc.ticketDate) <= 5
@@ -164,10 +189,10 @@ export default function TicketAlertModal({ open, onClose }) {
                             <time dateTime={prmc.lastSeenDateTime}>
                             {prmc.ticketDate}
                             </time>
-                          </p>
-                        </div>
-                      </li>
-                    ))} */}
+                          </p> */}
+                          </div>
+                        </li>
+                      ))}
                   </ul>
                 </div>
               </div>

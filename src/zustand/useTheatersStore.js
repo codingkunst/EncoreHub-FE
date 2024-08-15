@@ -17,10 +17,6 @@ const useTheaterStore = create((set) => ({
   setSelectedTheater: (theater) => set({ selectedTheater: theater }),
   setSearchTheaterName: (theater) => set({ searchTheaterName: theater }),
   setFavoriteTheaters: (theater) => set({ favoriteTheaters: theater }),
-  isFavorite: (theaterId) => {
-    const state = get();
-    return state.favoriteTheaters.some((theater) => theater.id === theaterId);
-  },
   setError: (error) => set({ error }),
   setLoading: (isLoading) => set({ isLoading }),
 }));

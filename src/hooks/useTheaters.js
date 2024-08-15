@@ -47,7 +47,7 @@ export const useFetchSearchTheater = (theater) => {
     },
     onSuccess: (data) => {
       setsearchTheaters(data);
-      console.log("Success fetch search theaters");
+      // console.log("Success fetch search theaters");
     },
     onError: (error) => {
       console.error("Error fetching search theater", error);
@@ -58,7 +58,7 @@ export const useFetchSearchTheater = (theater) => {
 export const useFetchFavoriteTheaters = () => {
   const { accessToken, refreshToken } = useAuthStore((state) => ({
     accessToken: state.accessToken,
-    refreshToken: state.token,
+    refreshToken: state.refreshToken,
   }));
   return useQuery({
     queryKey: ["favoriteTheaters"],
@@ -71,7 +71,7 @@ export const useFetchFavoriteTheaters = () => {
 export const useToggleFavoriteTheater = () => {
   const { accessToken, refreshToken } = useAuthStore((state) => ({
     accessToken: state.accessToken,
-    refreshToken: state.token,
+    refreshToken: state.refreshToken,
   }));
   return useMutation({
     mutationFn: async (theaterId) => {
@@ -81,7 +81,7 @@ export const useToggleFavoriteTheater = () => {
           accessToken,
           refreshToken
         );
-        console.log(result);
+        // console.log(result);
         return result;
       } catch (error) {
         console.error("toggle favorite theater failed:", error.message);

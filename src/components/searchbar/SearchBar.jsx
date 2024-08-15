@@ -40,7 +40,7 @@ const SearchBar = () => {
   const handleButtonClick = (theater) => {
     setSearchTheaterName(theater);
     toggleSearchModal();
-    console.log(theater, searchTheaterName);
+    // console.log(theater, searchTheaterName);
   };
 
   //search

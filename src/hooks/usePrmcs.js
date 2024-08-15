@@ -2,6 +2,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { fetchBoxOffPrmcs } from "../api/prmc";
 import usePrmcStore from "../zustand/usePrmcStore";
 import { getFavoritePfmcs, toggleFavoritePfmc } from "../api/user";
+import useAuthStore from "../zustand/useAuthStore";
 
 export const useFetchBoxOffPrmcs = () => {
   const setBoxOffPrmcs = usePrmcStore((state) => state.setBoxOffPrmcs);
@@ -22,7 +23,7 @@ export const useFetchBoxOffPrmcs = () => {
 export const useFetchFavoritePfmcs = () => {
   const { accessToken, refreshToken } = useAuthStore((state) => ({
     accessToken: state.accessToken,
-    refreshToken: state.token,
+    refreshToken: state.refreshToken,
   }));
   return useQuery({
     queryKey: ["favoritePfmcs"],
@@ -35,7 +36,7 @@ export const useFetchFavoritePfmcs = () => {
 export const useToggleFavoritePfmc = () => {
   const { accessToken, refreshToken } = useAuthStore((state) => ({
     accessToken: state.accessToken,
-    refreshToken: state.token,
+    refreshToken: state.refreshToken,
   }));
   return useMutation({
     mutationFn: async (performanceId) => {

@@ -51,7 +51,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
   const { isAuthenticated, accessToken, refreshToken } = useAuthStore(
     (state) => ({
       isAuthenticated: state.isAuthenticated,
-      refreshToken: state.token,
+      refreshToken: state.refreshToken,
       accessToken: state.accessToken,
     })
   );
@@ -99,7 +99,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
           refreshToken
         );
         setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
-        console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
+        // console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
       } catch (error) {
         console.error(
           "Error toggling favorite theater:",
@@ -109,7 +109,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
     }
   };
   useEffect(() => {
-    console.log("Favorite theaters updated:", favoriteTheaters);
+    // console.log("Favorite theaters updated:", favoriteTheaters);
   }, [favoriteTheaters]);
 
   const isFavorite = (theaterId) => {
@@ -128,6 +128,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
         </StyledSearchTitle>
         <VenueList>
           {searchTheaterName &&
+            searchTheater &&
             searchTheater.theaters.map((theater) => (
               <VenueItem
                 key={theater.mt10id}
