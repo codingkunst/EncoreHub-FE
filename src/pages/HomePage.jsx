@@ -10,7 +10,7 @@ import useAuthStore from "../zustand/useAuthStore";
 import { login } from "../api/auth";
 
 const HomePage = () => {
-  const { AccessToken, isAuthenticated, login } = useAuthStore();
+  const { AccessToken, token, isAuthenticated, login } = useAuthStore();
   useEffect(() => {
     if (AccessToken) {
       login(); // 로그인 시도
@@ -19,6 +19,7 @@ const HomePage = () => {
 
   useEffect(() => {
     console.log("AccessToken:", AccessToken);
+    console.log("refreshToken:", token);
     console.log("isAuthenticated:", isAuthenticated);
   }, [AccessToken, isAuthenticated]);
 

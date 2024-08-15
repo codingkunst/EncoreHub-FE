@@ -25,7 +25,7 @@ const responsive = {
   },
 };
 
-const SlideCard = ({ boxOffPrmcs }) => {
+const SlideCard = () => {
   const { data: boxOffPrmcs, isLoading, error } = useFetchBoxOffPrmcs();
 
   useEffect(() => {
