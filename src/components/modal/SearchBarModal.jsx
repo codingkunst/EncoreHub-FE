@@ -23,6 +23,7 @@ import {
   StyledFavWrap,
   StyledFav,
 } from "./SearchBarModal.styled";
+import KakaoMap from "../map/KakaoMap";
 
 const SearchBarModal = ({ isVisible, onClose }) => {
   //auth
@@ -53,7 +54,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
 
   useEffect(() => {
     if (regions) {
-      // console.log("storeRegions:", storeRegions);
+      console.log("storeRegions:", storeRegions);
       // console.log("regions:", regions);
       setRegions(regions);
     }
@@ -79,8 +80,9 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   } = useTheaterStore();
 
   useEffect(() => {
-    // console.log("storeTheater:", storeTheaters);
+    console.log("storeTheater:", storeTheaters);
     setTheaters(theaters);
+    console.log(theaters);
   }, [theaters, storeTheaters]);
 
   //theater - navigate prmc page
@@ -319,75 +321,84 @@ const SearchBarModal = ({ isVisible, onClose }) => {
           </p>
           <p>자주 찾는 공연장을 즐겨찾기에 추가할 수 있습니다.</p>
         </div>
-        {selectedRegion ? (
-          theaters ? (
-            <VenueList style={{ marginTop: "3rem" }}>
-              {theaters.map((theater) => (
-                <VenueItem
-                  key={theater.mt10id}
-                  className="inline-block rounded px-6 pb-2 pt-2.5 text-s font-medium uppercase leading-normal text-grey shadow-[0_4px_9px_-4px_#ccc] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
-                  style={{ justifyContent: "space-between" }}
-                  onClick={(event) =>
-                    setTheaterClickHandler(theater.mt10id, event)
-                  }
-                >
-                  <button style={{ marginRight: "5px" }}>
-                    {theater.fcltynm}
-                  </button>
-                  <button
-                    onClick={(event) =>
-                      handleToggleFavoriteTheater(
-                        theater.mt10id,
-                        // theater.theaterName,
-                        event
-                      )
-                    }
-                  >
-                    {!isAuthenticated ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="rgb(245, 245, 245)"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="rgb(245, 245, 245"
-                        className="h-6 w-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill={
-                          isFavorite(theater.mt10id)
-                            ? "rgb(138, 14, 196)"
-                            : "none"
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ width: "400px" }}>
+            {selectedRegion ? (
+              theaters && theaters.length > 0 ? (
+                <VenueList style={{ marginTop: "3rem" }}>
+                  {theaters.map((theater) => (
+                    <VenueItem
+                      key={theater.mt10id}
+                      className="inline-block rounded px-6 pb-2 pt-2.5 text-s font-medium uppercase leading-normal text-grey shadow-[0_4px_9px_-4px_#ccc] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+                      style={{ justifyContent: "space-between" }}
+                      onClick={(event) =>
+                        setTheaterClickHandler(theater.mt10id, event)
+                      }
+                    >
+                      <button style={{ marginRight: "5px" }}>
+                        {theater.fcltynm}
+                      </button>
+                      <button
+                        onClick={(event) =>
+                          handleToggleFavoriteTheater(
+                            theater.mt10id,
+                            // theater.theaterName,
+                            event
+                          )
                         }
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="rgb(138, 14, 196)"
-                        className="h-6 w-6"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </VenueItem>
-              ))}
-            </VenueList>
-          ) : (
-            <p>No theaters available</p>
-          )
-        ) : (
-          <p style={{ margin: "2rem 0 0 1rem" }}>원하는 지역을 선택하세요!</p>
-        )}
+                        {!isAuthenticated ? (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="rgb(245, 245, 245)"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="rgb(245, 245, 245"
+                            className="h-6 w-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                            />
+                          </svg>
+                        ) : (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill={
+                              isFavorite(theater.mt10id)
+                                ? "rgb(138, 14, 196)"
+                                : "none"
+                            }
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="rgb(138, 14, 196)"
+                            className="h-6 w-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                            />
+                          </svg>
+                        )}
+                      </button>
+                    </VenueItem>
+                  ))}
+                </VenueList>
+              ) : (
+                <p style={{ margin: "2rem 0 0 1rem" }}>
+                  공연장에 상영중인 공연이 없습니다
+                </p>
+              )
+            ) : (
+              <p style={{ margin: "2rem 0 0 1rem" }}>
+                원하는 지역을 선택하세요!
+              </p>
+            )}
+          </div>
+          <KakaoMap />
+        </div>
       </div>
     </Modal>
   );
