@@ -9,7 +9,7 @@ export const toggleFavoriteTheater = async (
   try {
     const axiosInstance = axiosWithAuth(accessToken, refreshToken);
     const response = await axiosInstance.post("/api/favorite-theaters/toggle", {
-      theaterId,
+      mt10id: theaterId,
     });
     // console.log("API response data:", response.data);
     return response.data;

@@ -42,7 +42,7 @@ const Header = () => {
         </Link>
         {!isHomePage && <SearchBar />}
         <HeaderContains>
-          {isAuthenticated && (
+          {/* {isAuthenticated && (
             <StyledTicketAlert
               className="transition-all duration-300 ease-in-out hover:bg-gray-100 hover:shadow-md hover:scale-105 cursor-pointer"
               onClick={handleAlertClick}
@@ -64,7 +64,7 @@ const Header = () => {
                 />
               </StyledBellIcon>
             </StyledTicketAlert>
-          )}
+          )} */}
           <Nav>
             {!isAuthenticated ? (
               <div>
@@ -109,7 +109,7 @@ const Header = () => {
           </Nav>
         </HeaderContains>
       </HeaderContainer>
-      <TicketAlertModal open={open} onClose={setOpen} />
+      {/* <TicketAlertModal open={open} onClose={setOpen} /> */}
     </div>
   );
 };
