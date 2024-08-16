@@ -43,7 +43,7 @@ export default function KakaoMap() {
       return;
     }
 
-    console.log("Theaters state:", theaters); // 디버깅: theaters 배열 확인
+    // console.log("Theaters state:", theaters); // 디버깅: theaters 배열 확인
 
     const container = mapContainer.current;
     const options = {

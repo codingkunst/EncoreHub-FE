@@ -90,7 +90,7 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
     event.stopPropagation();
 
     if (isAuthenticated === false) {
-      console.log("로그인 후 즐겨찾기 추가");
+      alert("로그인 후 즐겨찾기 추가가 가능합니다.");
       return;
     } else {
       try {

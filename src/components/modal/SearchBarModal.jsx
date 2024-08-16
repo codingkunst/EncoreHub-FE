@@ -54,7 +54,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
 
   useEffect(() => {
     if (regions) {
-      console.log("storeRegions:", storeRegions);
+      // console.log("storeRegions:", storeRegions);
       // console.log("regions:", regions);
       setRegions(regions);
     }
@@ -80,9 +80,9 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   } = useTheaterStore();
 
   useEffect(() => {
-    console.log("storeTheater:", storeTheaters);
+    // console.log("storeTheater:", storeTheaters);
     setTheaters(theaters);
-    console.log(theaters);
+    // console.log(theaters);
   }, [theaters, storeTheaters]);
 
   //theater - navigate prmc page
@@ -126,7 +126,8 @@ const SearchBarModal = ({ isVisible, onClose }) => {
   const handleToggleFavoriteTheater = async (theaterId, event) => {
     event.stopPropagation();
     if (isAuthenticated === false) {
-      console.log("로그인 후 즐겨찾기 추가");
+      // console.log("로그인 후 즐겨찾기 추가");
+      alert("로그인 후 즐겨찾기가 가능합니다.");
       return;
     }
     try {
@@ -138,7 +139,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
       );
       setFavoriteTheaters(updatedFavoriteTheaters); // 상태를 업데이트
       // console.log("updateFavoriteTheaters:", updatedFavoriteTheaters);
-      console.log(theaterId);
+      // console.log(theaterId);
     } catch (error) {
       console.error(
         "Error toggling favorite theater:",
@@ -388,7 +389,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
                 </VenueList>
               ) : (
                 <p style={{ margin: "2rem 0 0 1rem" }}>
-                  공연장에 상영중인 공연이 없습니다
+                  현재 상영하는 공연이 있는 공연장이 없습니다.
                 </p>
               )
             ) : (

@@ -34,9 +34,18 @@ const MyPage = () => {
   // 좋아요한 공연 READ
   const getLikePfmc = async () => {
     try {
-      const { data } = await axios.get(`${apiKey}/api/likes/mypage/performances`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
+      const { data } = await axios.get(
+        `${apiKey}/api/likes/mypage/performances`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            AccessToken: accessToken ? accessToken : undefined,
+            RefreshToken: refreshToken ? refreshToken : undefined,
+          },
+        }
+      );
       setLikePrmcList(data.data);
-      console.log("좋아하는 공연 조회 성공");
+      // console.log("좋아하는 공연 조회 성공");
     } catch (error) {
       console.error("좋아하는 공연 조회 실패: ", error);
     }
@@ -45,9 +54,15 @@ const MyPage = () => {
   // 즐겨찾는 공연 READ
   const getFavoritePfmc = async () => {
     try {
-      const { data } = await axios.get(`${apiKey}/api/favorite-pfmc/mypage`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
+      const { data } = await axios.get(`${apiKey}/api/favorite-pfmc/mypage`, {
+        headers: {
+          "Content-Type": "application/json",
+          AccessToken: accessToken ? accessToken : undefined,
+          RefreshToken: refreshToken ? refreshToken : undefined,
+        },
+      });
       setFavoritePfmc(data);
-      console.log("즐겨찾는 공연 조회 성공");
+      // console.log("즐겨찾는 공연 조회 성공");
     } catch (error) {
       console.error("즐겨찾는 공연 조회 실패: ", error);
     }
@@ -62,7 +77,12 @@ const MyPage = () => {
     <div>
       <h1 className="m-4 text-4xl text-center">💜 내가 좋아하는 공연 💜</h1>
       {likePrmcList.length > 0 ? (
-        <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
+        <Carousel
+          infinite={true}
+          centerMode={true}
+          responsive={responsive}
+          autoPlay={true}
+        >
           {likePrmcList.map((item) => {
             return <MyPfmcCard key={item.mt20id} item={item} />;
           })}
@@ -73,13 +93,20 @@ const MyPage = () => {
 
       <h1 className="m-4 text-4xl text-center">🧡 내가 즐겨찾는 공연 🧡</h1>
       {favoritePfmc.length > 0 ? (
-        <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
+        <Carousel
+          infinite={true}
+          centerMode={true}
+          responsive={responsive}
+          autoPlay={true}
+        >
           {favoritePfmc.map((item) => {
             return <MyPfmcCard key={item.mt20id} item={item} />;
           })}
         </Carousel>
       ) : (
-        <h1 className="m-4 text-2xl text-center">공연 즐겨찾기를 추가해주세요😥</h1>
+        <h1 className="m-4 text-2xl text-center">
+          공연 즐겨찾기를 추가해주세요😥
+        </h1>
       )}
 
       {/* 카카오맵 컴포넌트 */}
