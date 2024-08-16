@@ -19,6 +19,7 @@ const PrmcPage = () => {
           const url = `/api/theaters/${theaterId}`;
           const response = await axiosInstance.get(url);
           setPrmcList(response.data.performances);
+          console.log(prmcList);
         } catch (error) {
           console.error("공연 데이터 조회 실패: ", error);
         }
