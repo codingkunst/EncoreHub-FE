@@ -313,7 +313,10 @@ const SearchBarModal = ({ isVisible, onClose }) => {
             borderRadius: "4px",
           }}
         >
-          <p>공연장 별 공연 정보를 확인하세요! (지역 공연장 선택)</p>
+          <p>
+            공연장 별 공연 정보를 확인하세요! (지역 > 공연장 선택) *상영하는
+            공연이 있는 공연장만 노출됩니다.
+          </p>
           <p>자주 찾는 공연장을 즐겨찾기에 추가할 수 있습니다.</p>
         </div>
         {selectedRegion ? (
@@ -383,7 +386,7 @@ const SearchBarModal = ({ isVisible, onClose }) => {
             <p>No theaters available</p>
           )
         ) : (
-          <p>원하는 지역을 선택하세요!</p>
+          <p style={{ margin: "2rem 0 0 1rem" }}>원하는 지역을 선택하세요!</p>
         )}
       </div>
     </Modal>

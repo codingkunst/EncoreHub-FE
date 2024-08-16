@@ -45,6 +45,8 @@ const SearchTheaterModal = ({ isVisible, onClose, searchText }) => {
 
   const setTheaterClickHandler = (theater) => {
     setSelectedTheater(theater);
+    onClose();
+
     navigate(`/prmcpage/${theater}`);
   };
 
