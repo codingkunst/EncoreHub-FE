@@ -35,7 +35,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
           }
         );
         setComments(data.data);
-        console.log("댓글 조회 성공");
+        // console.log("댓글 조회 성공");
       } catch (error) {
         console.error("댓글 조회 실패", error);
       }
@@ -73,7 +73,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
       .then((response) => {
         setComments([...comments, response.data.data]);
         setNewComment("");
-        console.log("댓글 작성 성공");
+        // console.log("댓글 작성 성공");
       })
       .catch((error) => {
         console.error("댓글 작성 실패:", error);
@@ -92,7 +92,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
         },
       });
       setComments(comments.filter((item) => item.id !== commentId));
-      console.log("댓글 삭제 성공");
+      // console.log("댓글 삭제 성공");
     } catch (error) {
       console.error("댓글 삭제 실패:", error);
     }

@@ -59,7 +59,7 @@ export const useRegister = () => {
       }
     },
     onSuccess: (data) => {
-      console.log("Registration successful:", data);
+      // console.log("Registration successful:", data);
       navigate("/login");
     },
     onError: (error) => {

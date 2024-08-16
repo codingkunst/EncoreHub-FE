@@ -11,7 +11,7 @@ export const useFetchBoxOffPrmcs = () => {
     queryFn: fetchBoxOffPrmcs,
     onSuccess: (data) => {
       setBoxOffPrmcs(data);
-      console.log("success");
+      // console.log("success");
     },
     onError: (error) => {
       console.error("Error fetching regions", error);
@@ -46,7 +46,7 @@ export const useToggleFavoritePfmc = () => {
           accessToken,
           refreshToken
         );
-        console.log(result);
+        // console.log(result);
         return result;
       } catch (error) {
         console.error("toggle favorite pfmc failed:", error.message);
