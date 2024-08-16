@@ -18,7 +18,7 @@ export const StyledModalContent = styled.div`
   background: #fff;
   padding: 2rem;
   border-radius: 8px;
-  width: 70%;
+  width: 60%;
   position: relative;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
