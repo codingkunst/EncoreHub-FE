@@ -120,6 +120,7 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <p className="mt-2">관람 연령 : {item.prfage}</p>
         <p className="mt-2">장르 : {item.genrenm}</p>
         <p className="mt-2">티켓 가격 : {item.pcseguidance}</p>
+        {/* <p className="mt-2"><a href={item.relateInfos[0].relateurl} target="_blank">🎪 NEW 예매하기 🎪</a></p> */}
         <p className="mt-2 mb-2.5">
           {item.relateInfos.length > 0 ? (
             <a href={item.relateInfos[0].relateurl} target="_blank">

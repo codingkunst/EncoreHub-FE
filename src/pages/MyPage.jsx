@@ -60,7 +60,7 @@ const MyPage = () => {
 
   return (
     <div>
-      <h1 className="m-4 text-center">💜 내가 좋아하는 공연 💜</h1>
+      <h1 className="m-4 text-4xl text-center">💜 내가 좋아하는 공연 💜</h1>
       {likePrmcList.length > 0 ? (
         <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
           {likePrmcList.map((item) => {
@@ -68,10 +68,10 @@ const MyPage = () => {
           })}
         </Carousel>
       ) : (
-        <h1 className="m-4 text-center">공연 좋아요를 눌러주세요😥</h1>
+        <h1 className="m-4 text-2xl text-center">공연 좋아요를 눌러주세요😥</h1>
       )}
 
-      <h1 className="m-4 text-center">🧡 내가 즐겨찾는 공연 🧡</h1>
+      <h1 className="m-4 text-4xl text-center">🧡 내가 즐겨찾는 공연 🧡</h1>
       {favoritePfmc.length > 0 ? (
         <Carousel infinite={true} centerMode={true} responsive={responsive} autoPlay={true}>
           {favoritePfmc.map((item) => {
@@ -79,7 +79,7 @@ const MyPage = () => {
           })}
         </Carousel>
       ) : (
-        <h1 className="m-4 text-center">공연 즐겨찾기를 추가해주세요😥</h1>
+        <h1 className="m-4 text-2xl text-center">공연 즐겨찾기를 추가해주세요😥</h1>
       )}
 
       {/* 카카오맵 컴포넌트 */}
