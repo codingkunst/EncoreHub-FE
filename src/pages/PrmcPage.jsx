@@ -9,9 +9,7 @@ const PrmcPage = () => {
   const { theaterId } = useParams(); // 공연장 id
   const [prmcList, setPrmcList] = useState([]); // 공연 목록 상태
 
-  const setSelectedTheater = useTheaterStore(
-    (state) => state.setSelectedTheater
-  );
+  const setSelectedTheater = useTheaterStore((state) => state.setSelectedTheater);
 
   // 공연 데이터 READ
   useEffect(() => {
@@ -20,7 +18,7 @@ const PrmcPage = () => {
         try {
           const url = `/api/theaters/${theaterId}`;
           const response = await axiosInstance.get(url);
-          return setPrmcList(response.data.performances);
+          setPrmcList(response.data.performances);
         } catch (error) {
           console.error("공연 데이터 조회 실패: ", error);
         }
@@ -31,7 +29,7 @@ const PrmcPage = () => {
 
   return (
     <div>
-      <h1>공연 목록</h1>
+      <h1 className="m-4 text-4xl">⛄ 공연 목록 ⛄</h1>
       <Container>
         <Row>
           {prmcList.map((item) => {

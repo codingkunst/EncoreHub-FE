@@ -17,16 +17,7 @@ const LikeAndFavorite = ({ mt20id }) => {
   // 좋아요 상태 조회
   const getLike = async () => {
     try {
-      const { data } = await axios.get(
-        `${apiKey}/api/likes/mypage/performances`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            AccessToken: accessToken ? accessToken : undefined,
-            RefreshToken: refreshToken ? refreshToken : undefined,
-          },
-        }
-      );
+      const { data } = await axios.get(`${apiKey}/api/likes/mypage/performances`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
       const findId = data.data.find((item) => item.mt20id === mt20id);
       setIsLike(findId ? findId.liked : false);
       console.log("좋아요 상태 조회 성공");
@@ -38,17 +29,7 @@ const LikeAndFavorite = ({ mt20id }) => {
   // 좋아요 상태 변경
   const onLikeHandler = async () => {
     try {
-      const response = await axios.post(
-        `${apiKey}/api/likes/toggle`,
-        { mt20id: mt20id },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            AccessToken: accessToken ? accessToken : undefined,
-            RefreshToken: refreshToken ? refreshToken : undefined,
-          },
-        }
-      );
+      const response = await axios.post(`${apiKey}/api/likes/toggle`, { mt20id: mt20id }, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
       setIsLike(response.data.data.liked);
       setIsLikeCount(response.data.data.likeCount);
       console.log("좋아요 상태 변경 성공");
@@ -60,14 +41,8 @@ const LikeAndFavorite = ({ mt20id }) => {
   // 즐겨찾기 상태 조회
   const getFavorite = async () => {
     try {
-      const { data } = await axios.get(`${apiKey}/api/favorite-pfmc/mypage`, {
-        headers: {
-          "Content-Type": "application/json",
-          AccessToken: accessToken ? accessToken : undefined,
-          RefreshToken: refreshToken ? refreshToken : undefined,
-        },
-      });
-      const findId = data.find((item) => item.performanceId === mt20id);
+      const { data } = await axios.get(`${apiKey}/api/favorite-pfmc/mypage`, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
+      const findId = data.find((item) => item.mt20id === mt20id);
       setIsFavorite(findId ? findId.favorited : false);
       console.log("즐겨찾기 상태 조회 성공");
     } catch (error) {
@@ -78,19 +53,9 @@ const LikeAndFavorite = ({ mt20id }) => {
   // 즐겨찾기 상태 변경
   const onFavoriteHandler = async () => {
     try {
-      const response = await axios.post(
-        `${apiKey}/api/favorite-pfmc/toggle`,
-        { mt20id: mt20id },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            AccessToken: accessToken ? accessToken : undefined,
-            RefreshToken: refreshToken ? refreshToken : undefined,
-          },
-        }
-      );
+      const response = await axios.post(`${apiKey}/api/favorite-pfmc/toggle`, { mt20id: mt20id }, {headers: {"Content-Type": "application/json", AccessToken: accessToken ? accessToken : undefined, RefreshToken: refreshToken ? refreshToken : undefined}});
       setIsFavorite(response.data.favorited);
-      console.log("좋아요 상태 변경 성공");
+      console.log("즐겨찾기 상태 변경 성공");
     } catch (error) {
       console.error("즐겨찾기 상태 변경 실패 : ", error);
     }
