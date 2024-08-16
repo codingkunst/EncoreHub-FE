@@ -10,6 +10,7 @@ const MyPfmcCard = ({ item }) => {
         <Card.Img className="w-auto h-auto" variant="top" src={item.poster} alt="Loading..."/>
         <Card.Body className="d-grid gap-2">
           <Card.Title>공연명 : {item.prfnm}</Card.Title>
+          <Button variant="outline-secondary">예매하러 Go</Button>
         </Card.Body>
       </Card>
     </div>
