@@ -37,7 +37,7 @@ const SignUpPage = () => {
               <TEInput
                 type="email"
                 name="email"
-                placeholder="email"
+                placeholder="이메일"
                 {...register("email", {
                   required: "Email is required",
                   pattern: {
@@ -149,7 +149,7 @@ const SignUpPage = () => {
               <TEInput
                 type="password"
                 name="password"
-                placeholder="password"
+                placeholder="비밀번호"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -176,7 +176,7 @@ const SignUpPage = () => {
               <TEInput
                 type="password"
                 name="confirmPassword"
-                placeholder="confirm password"
+                placeholder="비밀번호 확인"
                 {...register("confirmPassword", {
                   required: "Please confirm your password",
                   validate: (value) =>

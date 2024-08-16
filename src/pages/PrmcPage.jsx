@@ -31,7 +31,9 @@ const PrmcPage = () => {
 
   return (
     <div>
-      <h1>공연 목록</h1>
+      <h1 style={{ margin: "3rem 3rem 3rem 12rem", fontSize: "2.25rem" }}>
+        공연 목록
+      </h1>
       <Container>
         <Row>
           {prmcList.map((item) => {

@@ -121,9 +121,9 @@ const ModalDetail = ({ show, handleClose, item }) => {
         <p className="mt-2">장르 : {item.genrenm}</p>
         <p className="mt-2">티켓 가격 : {item.pcseguidance}</p>
         <p className="mt-2 mb-2.5">
-          <a href={item.relateInfos[0].relateurl || null} target="_blank">
+          {/* <a href={item.relateInfos[0].relateurl || null} target="_blank">
             🎪 예매하기 🎪
-          </a>
+          </a> */}
         </p>
         {/* 좋아요, 즐겨찾기 컴포넌트 */}
         <LikeAndFavorite mt20id={item.mt20id} />
