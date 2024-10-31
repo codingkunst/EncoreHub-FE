@@ -6,9 +6,17 @@
 | <img style="width: 200px;" src="https://avatars.githubusercontent.com/u/113411111?v=4" /> | <img style="width: 200px;" src="https://avatars.githubusercontent.com/u/121416591?v=4" /> |
 | 김노을 | 류영찬 |
 | [@noeulgim](https://github.com/noeulgim) | [@codingkunst](https://github.com/codingkunst) |
+
+## 주요 기능
+- 공연 상세 정보 조회
+- 공연 예매 기능
+- 공연 리뷰 및 좋아요 기능
+- zustand 상태관리
+
 ## 🌐 서비스 링크 : [Encore Hub](https://encorehub.vercel.app)
 ## 🛠️ Skill
 ![Skills](https://skillicons.dev/icons?i=git,html,css,js,react,vite,yarn,tailwind,bootstrap)
+
 ## 💥 트러블슈팅
 ## Git Commit Convention
 | 태그 이름 | 설명 |
