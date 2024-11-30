@@ -8,6 +8,10 @@
 | [@noeulgim](https://github.com/noeulgim) | [@codingkunst](https://github.com/codingkunst) |
 
 ## 주요 기능
+- 메인 페이지
+  - 로그인, 회원가입
+  - 공연장 검색 기능
+  - 카카오맵을 이용한 공연장 위치 표시
 - 공연 상세 정보 조회
 - 공연 예매 기능
 - 공연 리뷰 및 좋아요 기능
